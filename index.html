@@ -1,0 +1,884 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Sabah</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#9fa5ad;--surface:#fff;--surface2:#f0ecfb;--ink:#1d1b2e;--muted:#66647c;--line:#e2ddf2;--accent:#5f3dc4;--accent2:#e64980;--g:#087f5b;--r:#c92a2a;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:'Cairo','Segoe UI',Tahoma,sans-serif;line-height:1.6}
+button,select,input{font:inherit;color:inherit}button{cursor:pointer}
+:focus-visible{outline:3px solid var(--accent2);outline-offset:2px}
+.wrap{max-width:1280px;margin:0 auto;padding:14px}
+.top{background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff;border-radius:24px;padding:16px 24px;display:flex;flex-wrap:wrap;gap:12px;justify-content:space-between;align-items:center;box-shadow:0 12px 30px rgba(60,30,140,.28)}
+.co{background:transparent;border:0;border-bottom:2px dashed rgba(255,255,255,.5);color:#fff;font-size:clamp(1.4rem,3vw,2.1rem);font-weight:800;width:min(420px,100%)}
+.tools{display:flex;gap:8px;flex-wrap:wrap}
+.btn{background:rgba(255,255,255,.2);color:#fff;border:1px solid rgba(255,255,255,.55);border-radius:12px;padding:6px 16px;font-weight:700}
+.btn.on{background:#fff;color:var(--accent)}
+.tabs{display:flex;gap:8px;flex-wrap:wrap;margin:14px 0;align-items:center}
+.tab{display:flex;align-items:center;gap:8px;padding:8px 20px;border-radius:999px;border:2px solid var(--line);background:var(--surface);font-weight:800}
+.tab::before{content:"";width:10px;height:10px;border-radius:50%;background:var(--c)}
+.tab.on{background:var(--c);border-color:var(--c);color:#fff}.tab.on::before{background:#fff}
+.tab.add{border-style:dashed}.tab.add::before{display:none}
+.nb{padding:7px 12px;border:2px solid var(--line);border-radius:12px;width:170px}
+.lay>main{min-width:0}
+.lay{display:grid;grid-template-columns:200px 1fr;gap:14px;align-items:start}
+.side{position:sticky;top:12px;background:var(--surface);border-radius:22px;padding:12px;display:flex;flex-direction:column;gap:6px}
+.side h3{margin:2px 6px 6px}
+.mb{display:flex;justify-content:space-between;align-items:center;gap:8px;border:0;border-radius:14px;padding:7px 14px;color:#fff;background:hsl(var(--h) 66% 38%);font-weight:700}
+.mb small{opacity:.92}.mb.on{outline:3px solid var(--accent2);outline-offset:2px}
+.mb:hover{filter:brightness(1.12)}
+.card,.sec{background:var(--surface);border-radius:20px;padding:16px;margin-bottom:14px;box-shadow:0 6px 22px rgba(40,30,90,.12)}
+h2{margin:0 0 8px;font-size:1.3rem}h3{margin:0 0 10px;font-size:1.05rem}
+.pt{display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between;margin-bottom:12px}
+.pt h2{margin:0;color:#14121f}
+.back{background:var(--surface);border:2px solid var(--line);border-radius:999px;padding:5px 16px;font-weight:700}
+.pick{border:0;border-radius:999px;color:#fff;font-weight:800;padding:7px 18px;background:linear-gradient(135deg,var(--accent),var(--accent2))}
+.g2,.g3,.g4{display:grid;gap:12px;margin-bottom:12px}
+.g2{grid-template-columns:repeat(auto-fit,minmax(260px,1fr))}.g3{grid-template-columns:repeat(auto-fit,minmax(150px,1fr))}.g4{grid-template-columns:repeat(auto-fit,minmax(170px,1fr))}
+.bx{border-radius:16px;padding:10px 14px;border:2px solid var(--line);border-top:6px solid var(--c,#999);background:var(--surface)}
+.bx small{display:block;color:var(--muted)}.bx b{display:block;font-size:1.25rem;font-weight:800;color:var(--c,#222)}
+.bx em{font-style:normal;font-size:.85rem;font-weight:700;background:var(--surface2);border-radius:999px;padding:0 10px}
+.bx.big{background:linear-gradient(135deg,var(--c),var(--c2,var(--c)));border:0;color:#fff}
+.bx.big small{color:rgba(255,255,255,.92)}.bx.big b{color:#fff;font-size:1.7rem}.bx.big em{background:rgba(255,255,255,.25)}
+.nav{display:flex;flex-direction:column;align-items:center;gap:2px;border:0;border-radius:18px;padding:16px 8px;color:#fff;font-weight:800;background:var(--c);font-size:1rem}
+.nav span{font-size:1.8rem}.nav:hover{filter:brightness(1.1);transform:translateY(-2px)}
+.scroll{overflow-x:auto}
+.wt{width:100%;border-collapse:separate;border-spacing:0 5px;font-size:.88rem}
+.wt th{padding:7px 6px;color:#fff;font-weight:700;font-size:.8rem;border-radius:9px;background:#495057;white-space:nowrap}
+.wt th.a{background:#1864ab}.wt th.b{background:#087f5b}.wt th.c{background:#6741d9}.wt th.d{background:#c2410c}.wt th.e{background:#c2255c}
+.wt td{padding:5px;background:var(--surface2);text-align:center}
+.wt td:first-child{text-align:start;border-radius:0 10px 10px 0}.wt td:last-child{border-radius:10px 0 0 10px}
+.wt td small{display:block;color:var(--muted)}
+.wt input,.wt select,.fm input,.fm select{width:92px;padding:5px 7px;border:2px solid var(--line);border-radius:9px;background:var(--surface);color:var(--ink);text-align:center}
+.wt input[type=text],.fm input[type=text]{width:130px}.wt input[type=date]{width:128px}
+.wt tfoot td,.gr td{background:var(--surface);font-weight:800}.gr td{text-align:start!important}
+.neg{color:#c92a2a;font-weight:800}.pos{color:#087f5b;font-weight:800}
+.fm{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:10px 0}
+.fm input[type=number]{width:100px}
+.hint{color:var(--muted);font-size:.85rem;margin:4px 0 10px}
+.del{border:0;background:transparent;font-size:1rem}
+.note{color:#14121f;font-size:.85rem;margin-top:10px}
+.sum{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:10px;margin:10px 0}
+.sum div{border-radius:16px;padding:10px 14px;color:#fff;background:var(--c)}.sum small{display:block;opacity:.92}.sum b{font-size:1.25rem}
+.bar{height:9px;border-radius:99px;background:var(--line);overflow:hidden}.bar i{display:block;height:100%;border-radius:99px;background:var(--c,#5f3dc4)}
+.ck{display:inline-flex;align-items:center;gap:5px;background:var(--surface2);border-radius:999px;padding:3px 12px;font-weight:700}
+.ck input{width:auto}
+@media (max-width:860px){.lay{grid-template-columns:1fr}.side{position:static;flex-direction:row;overflow-x:auto}.side h3{display:none}.mb{flex:none;flex-direction:column;min-width:80px;gap:0}}
+.arw{text-align:center;color:#14121f;font-size:1.7rem;line-height:1;margin:-6px 0 8px}
+.mc{border-radius:24px;overflow:hidden;background:var(--surface);box-shadow:0 12px 32px rgba(40,20,90,.3);margin-bottom:14px;border:3px solid #6741d9}
+.mch{display:flex;align-items:center;gap:16px;padding:16px 22px;background:linear-gradient(135deg,#2b2547,#6741d9 60%,#c2255c);color:#fff}
+.mch .ic{font-size:2.6rem;background:rgba(255,255,255,.18);border-radius:18px;padding:4px 14px}
+.mch small{display:block;opacity:.92;font-weight:700}.mch b{font-size:2rem;font-weight:800}
+.mch em{font-style:normal;margin-inline-start:10px;background:rgba(255,255,255,.22);border-radius:999px;padding:0 12px;font-size:.9rem}
+.mrow{padding:12px 18px;border-top:1px solid var(--line)}.mrow h4{margin:0 0 6px;font-size:1.02rem}
+.fm label{display:flex;flex-direction:column;font-size:.8rem;font-weight:700;gap:2px}
+.fm label.pick{flex-direction:row;font-size:1rem}
+pre.alert,.alert{background:#ffe3e3;border:2px solid #c92a2a;color:#7a1010;border-radius:12px;padding:8px 12px;font-weight:700;margin:8px 0;font-family:inherit}
+button:disabled{opacity:.45;cursor:not-allowed}
+.fm select{width:auto;min-width:170px}
+.fm input[type=date]{width:150px}.fm input[type=file]{width:210px;border:0;background:transparent}
+.tag{display:inline-block;background:#fff3bf;color:#7a5d00;border-radius:999px;padding:0 10px;font-size:.8rem;font-weight:800}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+
+.hgrid{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(310px,1fr));margin-bottom:14px;align-items:start}
+.hero{background:linear-gradient(135deg,#087f5b,#2f9e44);color:#fff;border-radius:20px;padding:16px 18px;box-shadow:0 8px 24px rgba(8,127,91,.28)}
+.ht,.ph2{display:flex;align-items:center;gap:12px;margin-bottom:12px}
+.hi{font-size:1.5rem;background:rgba(255,255,255,.2);border-radius:14px;padding:4px 10px}
+.hero small{display:block;opacity:.92;font-weight:700}.hero .ht b{font-size:1.9rem;font-weight:800}
+.pc{background:var(--surface);border-radius:20px;padding:16px 18px;box-shadow:0 6px 22px rgba(40,30,90,.12);margin-bottom:14px}
+.hgrid .pc{margin-bottom:0}
+.ph2 .hi{background:#f1edff}.ph2 small{color:var(--muted);font-weight:700;display:block}.ph2 b{font-size:1.6rem;font-weight:800;color:#2b2547}
+.ph2 em{font-style:normal;margin-inline-start:8px;background:var(--surface2);border-radius:999px;padding:0 10px;font-size:.82rem;font-weight:700}
+.ph3{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;gap:8px}.ph3 span b{font-size:1.2rem}
+.rl{display:flex;flex-direction:column;gap:9px}.rl.sm{gap:6px}
+.rt{display:flex;justify-content:space-between;align-items:center;gap:8px;font-size:.92rem}
+.rn{display:flex;align-items:center;gap:6px;font-weight:700}.sm .rn{font-weight:600;font-size:.85rem}
+.dot{width:9px;height:9px;border-radius:50%;background:var(--c);display:inline-block}
+.rv{white-space:nowrap}.rv b{font-weight:800;font-size:1rem}.rv em{font-style:normal;margin-inline-start:6px;background:var(--surface2);border-radius:999px;padding:0 8px;font-size:.78rem;font-weight:700}
+.bar{height:6px;border-radius:99px;background:var(--surface2);overflow:hidden;margin-top:4px}.bar i{display:block;height:100%;background:var(--c);border-radius:99px}
+.lt .rn,.lt .rv b{color:#fff}.lt .rv em{background:rgba(255,255,255,.25);color:#fff}.lt .bar{background:rgba(255,255,255,.22)}.lt .bar i{background:#fff}.lt .dot{background:#fff}
+.sub{margin-top:12px;padding-top:10px;border-top:1px dashed rgba(128,128,128,.35)}.sub>small{display:block;margin-bottom:8px;font-weight:700;font-size:.82rem;opacity:.9}
+.pc .sub>small{color:var(--muted)}
+.inc{margin-top:10px;font-weight:700;color:#087f5b;font-size:.92rem}.inc em{font-style:normal;background:var(--surface2);border-radius:999px;padding:0 8px;font-size:.78rem}
+.net{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;background:linear-gradient(135deg,var(--c),var(--c2));color:#fff;border-radius:18px;padding:12px 18px;margin-bottom:14px}
+.net small{display:block;opacity:.92;font-weight:700}.net b{font-size:1.6rem;font-weight:800;color:#fff}.net em{font-style:normal;background:rgba(255,255,255,.25);border-radius:999px;padding:2px 12px;font-weight:700}
+.gn{display:grid;gap:10px;grid-template-columns:repeat(auto-fill,minmax(118px,1fr));margin-bottom:14px}
+.gn .nav{padding:10px 6px;border-radius:14px;font-size:.88rem;gap:0}.gn .nav span{font-size:1.35rem}
+
+.acct{display:inline-block;background:#e6fcf5;color:#087f5b;border-radius:999px;padding:2px 10px;font-size:.82rem;font-weight:700;white-space:nowrap}
+.acct.no{background:#fff3bf;color:#a65e00}.lnk{border:0;background:none;color:#1864ab;text-decoration:underline;font-weight:700;cursor:pointer;padding:0 4px}
+.cc{background:var(--surface);border-radius:20px;padding:16px 18px 10px;box-shadow:0 6px 22px rgba(40,30,90,.12);margin-bottom:14px}.cch{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;flex-wrap:wrap}.cch b{font-size:1.1rem}.cch small{display:block;color:var(--muted);font-weight:600}.lg{display:flex;gap:14px;flex-wrap:wrap}.lg span{display:inline-flex;align-items:center;gap:6px;font-weight:700;font-size:.85rem}.lg i{width:12px;height:12px;border-radius:4px;display:inline-block}.cs{display:flex;gap:10px;flex-wrap:wrap;margin:12px 0 6px}.cs div{background:var(--surface2);border-radius:12px;padding:6px 14px}.cs small{display:block;font-size:.75rem;color:var(--muted);font-weight:700}.cs b{font-size:1rem}.cc svg{width:100%;height:auto;display:block}.cc .emp{padding:30px;text-align:center;color:var(--muted)}.xbar{display:flex;justify-content:flex-end;margin:0 0 10px}
+.bigt{display:flex;align-items:center;gap:18px;background:linear-gradient(135deg,#087f5b,#2f9e44);color:#fff;border-radius:24px;padding:22px 26px;margin-bottom:14px;box-shadow:0 10px 28px rgba(8,127,91,.3)}.bi{font-size:3.4rem;background:rgba(255,255,255,.2);border-radius:20px;padding:6px 18px}.bigt small{display:block;font-weight:700;opacity:.95;font-size:1.05rem}.bv b{font-size:3rem;font-weight:800}.tg{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));margin-bottom:6px}.tl{background:var(--surface);border-radius:20px;padding:16px 18px;border-top:7px solid var(--c);box-shadow:0 6px 20px rgba(40,30,90,.12)}.tt{display:flex;align-items:center;gap:8px;font-weight:700}.ti{font-size:1.7rem;background:var(--surface2);border-radius:12px;padding:2px 9px}.tv{margin:10px 0 4px}.tv b{font-size:1.7rem;font-weight:800;color:var(--c)}.tp{display:flex;align-items:center;gap:8px}.tp em{font-style:normal;background:var(--c);color:#fff;border-radius:999px;padding:1px 12px;font-weight:800}.tx{color:var(--muted);font-size:.8rem}.tl .bar{margin-top:10px}.ie{display:inline-flex;align-items:center;gap:6px}.ie input{width:130px}.up{color:#087f5b;font-weight:700}.dn{color:#c92a2a;font-weight:700}
+</style>
+</head>
+<body>
+<div class="wrap" id="root"></div>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js"></script>
+<script>
+const AR=['يناير','فبراير','مارس','أبريل','مايو','يونيو','يوليو','أغسطس','سبتمبر','أكتوبر','نوفمبر','ديسمبر'];
+const BCOL=['#5f3dc4','#c2410c','#1864ab','#a61e4d','#087f5b','#a07400'];
+const TYP={bean:['البن','☕','#7a4f2e'],wh:['أصناف المستودع','📦','#1c7ed6'],kit:['منتجات المطبخ','🥐','#d9480f']};
+const DL=[['kt','كيتا','#e8590c'],['jz','جاهز','#c2255c'],['hs','هنجرستيشن','#e03131'],['nj','نينجا','#6741d9']];
+const LS='kafid_pro_v1',ALL='__all';
+/* ====== ضع هنا بيانات مشروعك من Supabase (Settings ثم API). اتركها فارغة لتعمل النسخة المحلية القديمة. ====== */
+const SB_URL='https://vyzbjryudtdrhowpdtlx.supabase.co',SB_KEY='sb_publishable_ZPSa3R1OGTpuSqJR2jVCzg_7OFfuQBN';
+const SBON=!!(SB_URL&&SB_KEY)||!!window.__KAFID_DB;
+let S,br,yr=2026,mi=9,pg='home',showAdd=false,_c=0,msg='';
+const $=s=>document.querySelector(s);
+const esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const num=v=>{v=parseFloat(v);return isNaN(v)?0:v};
+const has=v=>v!==undefined&&v!==null&&v!==''&&!isNaN(+v);
+const fmt=n=>Math.round(n).toLocaleString('en-US'),money=n=>(n<0?'−':'')+fmt(Math.abs(n))+' '+S.cur;
+const fq=n=>(+(+n).toFixed(2)).toLocaleString('en-US'),pct=(a,b)=>b?(a/b*100).toFixed(1)+'%':'—';
+const kf=n=>Math.abs(n)>=1000?(n/1000).toFixed(1)+'k':fmt(n);
+const V=(t,c)=>`<b${c?` class="${c}"`:''} data-c="${++_c}">${t}</b>`;
+const VI=(t)=>`<em data-c="${++_c}">${t}</em>`;
+function rng(a){return()=>{a|=0;a=a+0x6D2B79F5|0;let t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296}}
+const IT=b=>S.bi[b]||(S.bi[b]=[]);
+const mk=()=>({rv:{},dx:{},op:{},days:[],stk:{},inv:[],ops:[],sal:[],pur:[],dep:0,wb:0,wk:0,xo:[],sk:'',sb:''});
+const mo=(b,y,m)=>{const k=`${b}|${y}|${m}`,M=S.mo[k]||(S.mo[k]=mk());if(!M.pur)M.pur=[];if(M.wb===undefined)M.wb=0;if(M.wk===undefined)M.wk=0;if(!M.xo)M.xo=[];if(!M.rv)M.rv={};if(!M.dx)M.dx={};if(!M.op)M.op={};return M};
+function seed(){
+ const items=[['بن برازيلي','كجم',180,'bean',12],['بن كولومبي','كجم',210,'bean',10],['حليب','لتر',6.5,'wh',150],['سكر','كجم',5,'wh',40],['أكواب ورقية','حبة',.35,'wh',3000],['عجينة كرواسون','كجم',28,'kit',60],['شوكولاتة طبخ','كجم',55,'kit',20]].map(([n,u,p,t,q],i)=>({id:'i'+i,n,u,p,t,q}));
+ S={company:'Sabah',cur:'ر.س',branches:['فرع 1','فرع 2'],bi:{},mo:{}};S.branches.forEach(b=>{S.bi[b]=items.map(({q,...r})=>({...r}))});
+ S.branches.forEach((b,bi)=>{const sc=[1,.75][bi],r=rng(11+bi*7);
+  [8,9].forEach(m=>{const M=mo(b,2026,m);
+   for(let d=1;d<=28;d+=3){const rv=(a,z)=>Math.round((a+r()*(z-a))*sc),kt=rv(1500,3000),jz=rv(800,2000),hs=rv(1000,2500),nj=rv(400,1200),net=rv(8000,14000),cash=rv(3000,6000),disc=rv(100,300);
+    const tot=kt+jz+hs+nj+net+cash-disc;
+    M.days.push({d:`2026-${String(m+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`,kt,jz,hs,nj,net,cash,canc:rv(100,400),ord:rv(60,120),disc,tax:Math.round(tot*.15/1.15),bud:Math.round(net*.997),bank:Math.round(net*.997),act:Math.round(cash*(.985+r()*.015))})}
+   items.forEach(i=>{const q=i.q*sc,f=v=>+v.toFixed(1);
+    M.stk[i.id]=m===8?{o:f(q),p:f(q*3),c:f(q*1.2)}:{p:f(q*3.2),c:f(q*1.1)}});
+   M.inv=[{d:`2026-${String(m+1).padStart(2,'0')}-05`,sup:'مورد خضار',t:'food',hi:true,tot:1150,tax:150},{d:`2026-${String(m+1).padStart(2,'0')}-12`,sup:'مطبعة',t:'petty',hi:false,tot:320,tax:0},{d:`2026-${String(m+1).padStart(2,'0')}-18`,sup:'مورد ألبان',t:'food',hi:true,tot:2300,tax:300},{d:`2026-${String(m+1).padStart(2,'0')}-22`,sup:'سباك',t:'petty',hi:true,tot:460,tax:60}];
+   M.ops=[{n:'إيجار الكافي',a:Math.round(27416*sc)},{n:'كهرباء ومياه',a:Math.round(11500*sc)},{n:'صيانة',a:Math.round(3000*sc)},{n:'مصروفات تشغيلية متنوعة',a:Math.round(5600*sc)}];
+   M.sal=[{n:'رواتب',a:Math.round(44959*sc)}];M.dep=Math.round(8000*sc);M.wb=Math.round(135*sc);M.wk=Math.round(250*sc)})});
+}
+function load(){try{const s=localStorage.getItem(LS);if(s){S=JSON.parse(s);if(S.items&&!S.bi){S.bi={};S.branches.forEach(b=>{S.bi[b]=S.items.map(i=>({...i}))});delete S.items}return}}catch(e){}seed()}
+function save(){if(SBON){scheduleSync();return}try{localStorage.setItem(LS,JSON.stringify(S,(k,v)=>k[0]==='_'?undefined:v))}catch(e){}}
+function price(b,y,m,it){
+ for(let k=0;k<12;k++){let mm=m-k,yy=y;while(mm<0){mm+=12;yy--}const M=S.mo[`${b}|${yy}|${mm}`];if(!M||!M.pur)continue;let q=0,a=0;M.pur.forEach(v=>v.lines.forEach(l=>{if(l.i===it.id){q+=num(l.q);a+=num(l.a)}}));if(q>0&&a>0)return a/q}
+ return it.p;
+}
+function srow(b,y,m,it){
+ const M=mo(b,y,m),r=M.stk[it.id]||{},pm=m>0?mo(b,y,m-1):mo(b,y-1,11),pv=pm.stk[it.id]||{},P=price(b,y,m,it);
+ const o=has(r.o)?+r.o:(has(pv.c)?+pv.c:0);
+ let pq=0,pa=0;M.pur.forEach(v=>v.lines.forEach(l=>{if(l.i===it.id){pq+=num(l.q);pa+=num(l.a)}}));
+ const pmn=+r.p||0,p=pmn+pq,c=has(r.c)?+r.c:undefined,q=c===undefined?null:o+p-c;
+ return{o,p,pm:pmn,pq,pa,P,pv:pa+pmn*P,c,q,v:q===null?null:q*P};
+}
+function addInto(a,b){for(const k in b){if(typeof b[k]==='object')addInto(a[k]=a[k]||{},b[k]);else a[k]=(a[k]||0)+b[k]}return a}
+function calc1(b,y,m){
+ const M=mo(b,y,m),r={dl:{kt:0,jz:0,hs:0,nj:0},net:0,cash:0,sysNet:0,sysCash:0,bank:0,cost:{bean:0,kit:0,wh:0},waste:{bean:0,kit:0},pur:{bean:0,kit:0,wh:0},ex:{fi:0,fn:0,pi:0,pn:0}};
+ M.days.forEach(d=>{DL.forEach(([k])=>r.dl[k]+=num(d[k]));r.net+=num(d.bud);r.cash+=num(d.act);r.sysNet+=num(d.net);r.sysCash+=num(d.cash);r.bank+=num(d.bank)});
+ r.del=DL.reduce((a,[k])=>a+r.dl[k],0);r.rev=r.del+r.net+r.cash;
+ IT(b).forEach(it=>{const s=srow(b,y,m,it);if(s.v!==null)r.cost[it.t]+=s.v;r.pur[it.t]+=s.pv});
+ M.pur.forEach(v=>{if(v.cost){const t=num(v.total);r.cost[v.t]+=t;r.pur[v.t]+=t}});
+ r.waste.bean=num(M.wb);r.waste.kit=num(M.wk);r.cost.bean+=r.waste.bean;r.cost.kit+=r.waste.kit;
+ r.costT=r.cost.bean+r.cost.kit+r.cost.wh;
+ r.sal=M.sal.reduce((a,x)=>a+num(x.a),0);r.ops=M.ops.reduce((a,x)=>a+num(x.a),0);r.dep=num(M.dep);
+ r.oi=0;r.oe=0;(M.xo||[]).forEach(x=>{if(x.k==='i')r.oi+=num(x.a);else r.oe+=num(x.a)});
+ r.sk=has(M.sk)?+M.sk:0;r.sb=has(M.sb)?+M.sb:0;r.hs=(has(M.sk)||has(M.sb))?1:0;
+ M.inv.forEach(v=>{r.ex[(v.t==='food'?'f':'p')+(v.hi?'i':'n')]+=num(v.tot)});
+ r.exT=r.ex.fi+r.ex.fn+r.ex.pi+r.ex.pn;
+ r.cost={bean:0,kit:0,wh:0};r.costT=r.ex.fi+r.ex.fn;const OP=M.op||{},DX=M.dx||{};r.opSal=num(OP.sal);r.opRent=num(OP.rent);r.opUtil=num(OP.util);r.dx={};DL.forEach(([k])=>{r.dx[k]=num(DX[k])});r.opDel=DL.reduce((a,[k])=>a+r.dx[k],0);r.opT=r.opSal+r.opRent+r.opUtil+r.opDel;r.fd=num(OP.fd);r.nf=r.ex.pi+r.ex.pn+r.fd;r.sal=r.opSal;r.ops=r.opT-r.opSal;r.oe=0;r.oi=0;r.dep=0;r.expAll=r.costT+r.opT+r.nf;r.ni0=r.rev-r.expAll;r.ni=r.ni0;
+ return r;
+}
+function CALC(b,y,m){if(b!==ALL)return calc1(b,y,m);const o={};S.branches.forEach(x=>addInto(o,calc1(x,y,m)));return o}
+const idb={db:null,open(){return new Promise((res,rej)=>{if(this.db)return res(this.db);const q=indexedDB.open('kafid_files',1);q.onupgradeneeded=()=>q.result.createObjectStore('f');q.onsuccess=()=>{this.db=q.result;res(this.db)};q.onerror=()=>rej(q.error)})},
+ async put(k,v){const db=await this.open();return new Promise((res,rej)=>{const t=db.transaction('f','readwrite');t.objectStore('f').put(v,k);t.oncomplete=res;t.onerror=()=>rej(t.error)})},
+ async get(k){const db=await this.open();return new Promise((res,rej)=>{const q=db.transaction('f').objectStore('f').get(k);q.onsuccess=()=>res(q.result);q.onerror=()=>rej(q.error)})}};
+async function xlm(name,sheets,plain){
+ try{
+  if(!window.XLSX){msg='تعذّر تحميل مكتبة Excel. تأكد من الاتصال بالإنترنت.';return render()}
+  const wb=XLSX.utils.book_new();wb.Workbook={Views:[{RTL:true}]};const used=new Set();
+  sheets.forEach(([sn,rows])=>{const r=rows&&rows.length?rows:[['لا توجد بيانات']];const ws=XLSX.utils.aoa_to_sheet(r);ws['!cols']=r[0].map((_,j)=>({wch:j?20:30}));let n=String(sn).replace(/[\\\/?*\[\]:]/g,' ').slice(0,31),k=2;while(used.has(n))n=n.slice(0,28)+' '+k++;used.add(n);XLSX.utils.book_append_sheet(wb,ws,n)});
+  const buf=XLSX.write(wb,{bookType:'xlsx',type:'array'}),fn=plain?`${S.company} - ${name}.xlsx`:`${S.company} - ${br} - ${name} - ${AR[mi]} ${yr}.xlsx`;
+  const dl=typeof claude!=='undefined'&&claude.use?await claude.use('downloads'):null;
+  if(dl)await dl.save({filename:fn,data:buf});
+  else{const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([buf],{type:'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'}));a.download=fn;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(a.href),2000)}
+ }catch(e){if(e&&e.code==='declined')return;msg='تعذّر التحميل: '+((e&&(e.message||e.code))||'');render()}
+}
+const xl=(name,rows)=>xlm(name,[[AR[mi],rows]]);
+/* ---- بناة صفوف Excel ---- */
+const rSales=M=>{const D=M.days,sm=k=>D.reduce((a,d)=>a+num(d[k]),0),R=[['التاريخ','الشبكة بالنظام','الموازنة','الكاش بالنظام','الكاش الفعلي','فرق الشبكة (النظام − الموازنة)','فرق الكاش (النظام − الفعلي)','نتيجة فروقات الشبكة والكاش','جاهز','هنجرستيشن','كيتا','نينجا']];D.forEach(d=>{const a=num(d.net)-num(d.bud),b=num(d.cash)-num(d.act);R.push([d.d,num(d.net),num(d.bud),num(d.cash),num(d.act),a,b,a+b,num(d.jz),num(d.hs),num(d.kt),num(d.nj)])});if(D.length){const a=sm('net')-sm('bud'),b=sm('cash')-sm('act');R.push(['الإجمالي',sm('net'),sm('bud'),sm('cash'),sm('act'),a,b,a+b,sm('jz'),sm('hs'),sm('kt'),sm('nj')])}return R};
+const rInv=M=>[['التاريخ','رقم الفاتورة','اسم المورد','نوع الفاتورة','بفاتورة','الإجمالي بالضريبة','المبلغ بدون الضريبة','الضريبة'],...M.inv.map(v=>[v.d,v.no||'',v.sup,v.t==='food'?'غذائية':'نثرية',v.hi?'نعم':'لا',num(v.tot),num(v.tot)-num(v.tax),num(v.tax)])];
+const rStk=()=>{let to=0,tp=0,tc=0,tv=0;const rws=IT(br).map(it=>{const s=srow(br,yr,mi,it),ov=s.o*s.P,cv=s.c===undefined?null:s.c*s.P;to+=ov;tp+=s.pv;if(s.v!==null){tv+=s.v;tc+=cv}return[it.n,TYP[it.t][0],it.u,+s.P.toFixed(4),s.o,+ov.toFixed(2),s.p,+s.pv.toFixed(2),s.c===undefined?'':s.c,cv===null?'':+cv.toFixed(2),s.q===null?'':+s.q.toFixed(2),s.v===null?'':+s.v.toFixed(2)]});return [['الصنف','النوع','الوحدة','السعر','الكمية أول المدة','القيمة أول المدة','المشتريات (الكمية)','قيمة المشتريات','الكمية آخر المدة (الجرد)','القيمة آخر المدة','كمية الاستهلاك','قيمة الاستهلاك'],...rws,['الإجمالي','','','','',+to.toFixed(2),'',+tp.toFixed(2),'',+tc.toFixed(2),'',+tv.toFixed(2)]]};
+const rInc=()=>{const{L,R}=incList();return [['البند','المبلغ','النسبة إلى إجمالي الإيراد'],...L.map(r=>r.k==='h'?[r.t,'','']:[r.t,+r.a.toFixed(2),R?+(r.a/R).toFixed(4):''])]};
+const rBuyI=()=>[['الصنف','النوع','الوحدة','سعر الوحدة','الكمية المشتراة في الشهر','قيمة المشتريات'],...IT(br).map(it=>{const s=srow(br,yr,mi,it);return[it.n,TYP[it.t][0],it.u,+s.P.toFixed(4),s.pq,+s.pv.toFixed(2)]})];
+const rBuyP=M=>{const R=[['التاريخ','رقم الفاتورة','المورد','النوع','الصنف','الكمية','الوحدة','المبلغ','إجمالي الفاتورة بالضريبة','الضريبة','ملاحظة']];M.pur.forEach(v=>{if(v.cost||!v.lines||!v.lines.length)R.push([v.d,v.no||'',v.sup||'',TYP[v.t][0],'','','','',num(v.total),num(v.tax),'تكلفة فقط']);else v.lines.forEach((l,k)=>{const it=IT(br).find(i=>i.id===l.i)||{};R.push([v.d,v.no||'',v.sup||'',TYP[v.t][0],it.n||'',num(l.q),it.u||'',num(l.a),k?'':num(v.total),k?'':num(v.tax),''])})});return R};
+const rMan=M=>{const R=[['القسم','البند','المبلغ'],['الهالك','هالك البن',num(M.wb)],['الهالك','هالك المطبخ',num(M.wk)]];M.ops.forEach(x=>R.push(['المصروفات التشغيلية',x.n,num(x.a)]));M.sal.forEach(x=>R.push(['الرواتب',x.n,num(x.a)]));R.push(['الإهلاك والإطفاء','مصروفات الإهلاك والإطفاء',num(M.dep)]);M.xo.forEach(x=>R.push([x.k==='i'?'إيرادات أخرى':'مصروفات أخرى',x.n||'بند بدون اسم',num(x.a)]));return R};
+const rCash=()=>{const m=calc1(br,yr,mi);return[['البند','المبلغ'],['إجمالي الكاش الفعلي',+m.cash.toFixed(2)],['(−) غذائية بفاتورة',m.ex.fi],['(−) غذائية بدون فاتورة',m.ex.fn],['(−) نثرية بفاتورة',m.ex.pi],['(−) نثرية بدون فاتورة',m.ex.pn],['الرصيد المتبقي من الكاش',+(m.cash-m.exT).toFixed(2)]]};
+const rAnaI=()=>{if(!ana){ana=[];for(let i=0;i<12;i++)if(CALC(br,yr,i).rev>0||CALC(br,yr,i).expAll>0)ana.push(i)}const sel=[...ana].sort((a,b)=>a-b),C=sel.map(i=>CALC(br,yr,i)),LS=C.map(incOf);return[['البند',...sel.flatMap(i=>[AR[i],AR[i]+' (% من الإيرادات)'])],...(LS[0]||[]).map((x,ri)=>x.k==='h'?[x.t]:[x.t,...LS.flatMap((L,j)=>[+L[ri].a.toFixed(2),C[j].rev?+(L[ri].a/C[j].rev).toFixed(4):''])])]};
+
+const rMap=()=>[['البند','رقم حساب دفترة','اسم الحساب'],...DMAP.map(([k,n])=>[n,(S.dmap||{})[k]?(S.dmap[k].c||''):'',(S.dmap||{})[k]?(S.dmap[k].n||''):''])];
+const rUsers=()=>[['الاسم','البريد الإلكتروني','الدور','الفرع'],...(USERS||[]).map(u=>[u.full_name||'',u.email,ROLEN[u.role]||'غير معتمد',BNAME[u.branch_id]||''])];
+const rLog=()=>{const A=(AUD||[]).filter(r=>(!audU||r.email===audU)&&(!audB||r.branch_id===audB)),tm=t=>new Date(t).toLocaleString('en-GB',{timeZone:'Asia/Riyadh',hour12:false,dateStyle:'short',timeStyle:'short'});return[['الوقت','المستخدم','الفرع','العملية','التفاصيل'],...A.map(r=>[tm(r.at),r.email||'',BNAME[r.branch_id]||'',(ALAB[r.action]||r.action)+' '+audTarget(r.target),audDetail(r)])]};
+const rHome=()=>{const m=CALC(br,yr,mi),R=m.rev,p=v=>R?+(v/R).toFixed(4):'',row=(n,v)=>[n,+(+v).toFixed(2),p(v)];return[['البند','المبلغ','النسبة إلى إجمالي الإيرادات'],row('إجمالي الإيرادات',R),row('الكاش الفعلي',m.cash),row('الشبكة (الموازنة)',m.net),...DL.map(([k,n])=>row('إيرادات '+n,m.dl[k])),row('تكلفة المبيعات',m.costT),...['bean','kit','wh'].map(t=>row('تكلفة '+TYP[t][0],m.cost[t])),row('المصروفات التشغيلية',m.ops),row('الرواتب',m.sal),row('مصروفات أخرى',m.oe),row('المصروفات النقدية الغذائية',m.ex.fi+m.ex.fn),row('المصروفات النقدية النثرية',m.ex.pi+m.ex.pn),row('صافي الدخل (بدون الإهلاك والإطفاء)',m.ni0)]};
+const rYear=()=>[['الشهر','الإيرادات','الكاش','الشبكة','شركات التوصيل','التكاليف التشغيلية','تكلفة المبيعات'],...yearSeries().map(d=>[d.n,+d.rev.toFixed(2),+d.cash.toFixed(2),+d.net.toFixed(2),+d.del.toFixed(2),+d.op.toFixed(2),+d.cost.toFixed(2)])];
+function xlAll(M){const L=[['قائمة الدخل',rInc()],['مقارنة الشهور',rAnaI()]];if(M)L.unshift(['المبيعات',rSales(M)],['الفواتير',rInv(M)]);return xlm('تقرير شامل',L)}
+const NAV=[['sales','تفاصيل المبيعات','📋','#1971c2'],['exp','المصروفات والفواتير','🧾','#087f5b'],['inc','قائمة الدخل','📑','#7a4f2e'],['ana','التحليل','📈','#a61e4d']];
+let ana=null;
+const IN=(p,v,t)=>`<input data-b="${p}" type="${t||'number'}"${t?'':' step="any" inputmode="decimal"'} value="${t?esc(v):(has(v)?+(+v).toFixed(2):'')}">`;
+const TH=(t,c)=>`<th${c?` class="${c}"`:''}>${t}</th>`;
+const TB=(h,r,f)=>`<div class="scroll"><table class="wt"><thead><tr>${h}</tr></thead><tbody>${r}</tbody>${f||''}</table></div>`;
+const ph=(t,x)=>`<div class="pt"><h2>${t}</h2><span>${x||''}<button class="back" data-go="home">🏠 الرئيسية</button></span></div>`;
+const needBr=()=>`<div class="card"><p class="hint">اختر فرعاً من الأعلى للإدخال. هذه الصفحة تخص فرعاً واحداً.</p></div>`;
+const bx=(l,v,s,c,ic)=>`<div class="bx" style="--c:${c}"><small>${ic||''} ${l}</small>${V(v)}${s!==undefined?VI(s):''}</div>`;
+const VS=h=>`<span data-c="${++_c}">${h}</span>`;
+const BAR=(p,c)=>`<div class="bar"><i data-c="${++_c}" style="--c:${c};width:${Math.max(0,Math.min(100,p))}%"></i></div>`;
+const btn=(a,t)=>`<button class="pick" data-act="${a}">${t}</button>`;
+const rl=(items,tot,cls)=>`<div class="rl${cls?' '+cls:''}">${items.map(([n,v,c,ic])=>{const p=tot>0?Math.max(0,Math.min(100,v/tot*100)):0;return`<div class="ri" style="--c:${c}"><div class="rt"><span class="rn"><i class="dot"></i>${ic?ic+' ':''}${n}</span><span class="rv">${V(money(v))}${VI(pct(v,tot))}</span></div><div class="bar"><i style="width:${p.toFixed(1)}%"></i></div></div>`}).join('')}</div>`;
+
+/* ---------- الوحدات ---------- */
+const DEFU=['كجم','جرام','لتر','مل','عبوة','علبة','كيس','كرتون','قطعة','دزينة','رول','وحدة'];
+let UNSEL='';
+const UNITS=()=>{const a=[...DEFU,...(S.units||[])];Object.values(S.bi||{}).forEach(l=>l.forEach(i=>{if(i.u)a.push(i.u)}));return[...new Set(a.map(x=>String(x).trim()).filter(Boolean))]};
+const unitOpts=sel=>{const L=UNITS();if(sel&&!L.includes(sel))L.push(sel);return L.map(u=>`<option value="${esc(u)}"${u===sel?' selected':''}>${esc(u)}</option>`).join('')};
+const USEL=(k,v)=>`<select data-b="${k}">${v?'':'<option value="" selected>—</option>'}${unitOpts(String(v||'').trim())}</select>`;
+function addUnitName(n){n=String(n||'').trim();if(!n||UNITS().includes(n))return;S.units=[...(S.units||[]),n];if(SBON&&ME&&ME.role==='admin')DB.setSetting('units',S.units).catch(()=>{})}
+
+/* ---------- الرسوم البيانية ---------- */
+const kk=v=>{const a=Math.abs(v),g=v<0?'−':'';return a>=1e6?g+(a/1e6).toFixed(1)+'M':a>=1e4?g+Math.round(a/1e3)+'k':a>=1e3?g+(a/1e3).toFixed(1)+'k':g+Math.round(a)};
+const nice=v=>{if(v<=0)return 1;const p=Math.pow(10,Math.floor(Math.log10(v))),f=v/p;return(f<=1?1:f<=2?2:f<=4?4:f<=8?8:10)*p};
+function yearSeries(){return AR.map((n,i)=>{const m=CALC(br,yr,i);return{i,n,rev:m.cash+m.net+m.del,cash:m.cash,net:m.net,del:m.del,op:m.ops+m.sal+m.oe,cost:m.costT}})}
+function barSVG(D,L,mode){
+ const W=760,H=290,pl=10,pr=50,pt=22,pb=30,iw=W-pl-pr,ih=H-pt-pb,sl=iw/12;
+ const tot=d=>mode==='stack'?L.reduce((a,x)=>a+Math.max(0,d[x.k]),0):Math.max(...L.map(x=>Math.max(0,d[x.k])),0);
+ const mx=nice(Math.max(...D.map(tot),0)),Y=v=>pt+ih-Math.max(0,v)/mx*ih;let g='';
+ for(let t=0;t<=4;t++){const y=Y(mx*t/4);g+=`<line x1="${pl}" x2="${W-pr}" y1="${y}" y2="${y}" stroke="rgba(110,105,140,.22)"${t?' stroke-dasharray="3 4"':''}/><text x="${W-pr+8}" y="${y+4}" font-size="11" fill="#66647c">${kk(mx*t/4)}</text>`}
+ D.forEach(d=>{const x0=pl+(11-d.i)*sl,cx=x0+sl/2,cur=d.i===mi;let bars='',lab='';
+  if(mode==='stack'){const bw=sl*.56;let acc=0;L.forEach(x=>{const v=Math.max(0,d[x.k]);if(v<=0)return;const y1=Y(acc+v),y0=Y(acc);bars+=`<rect x="${cx-bw/2}" y="${y1}" width="${bw}" height="${Math.max(.5,y0-y1)}" fill="${x.c}"/>`;acc+=v});if(acc>0)lab=`<text x="${cx}" y="${Y(acc)-5}" text-anchor="middle" font-size="10" font-weight="700" fill="#1d1b2e">${kk(acc)}</text>`}
+  else{const n=L.length,bw=sl*.76/n,st=cx-bw*n/2;L.forEach((x,k)=>{const v=Math.max(0,d[x.k]),y=Y(v);bars+=`<rect x="${st+k*bw+1}" y="${y}" width="${bw-2}" height="${Math.max(v>0?.5:0,pt+ih-y)}" rx="3" fill="${x.c}"/>`;if(v>0)lab+=`<text x="${st+k*bw+bw/2}" y="${y-4}" text-anchor="middle" font-size="9" font-weight="700" fill="#1d1b2e">${kk(v)}</text>`})}
+  const tip=`${AR[d.i]} ${yr}\n`+L.map(x=>`${x.n}: ${money(d[x.k])}`).join('\n');
+  g+=`<g data-mo="${d.i}" style="cursor:pointer"><title>${tip}</title><rect x="${x0+2}" y="${pt-10}" width="${sl-4}" height="${ih+pb}" fill="${cur?'rgba(95,61,196,.09)':'transparent'}" rx="8"/>${bars}${lab}<text x="${cx}" y="${H-10}" text-anchor="middle" font-size="11" font-weight="${cur?800:500}" fill="${cur?'#5f3dc4':'#66647c'}">${AR[d.i]}</text></g>`});
+ return`<svg viewBox="0 0 ${W} ${H}" style="direction:ltr" role="img">${g}</svg>`;
+}
+const ccard=(t,sub,L,chips,body)=>`<div class="cc"><div class="cch"><div><b>${t}</b><small>${sub}</small></div><div class="lg">${L.map(x=>`<span><i style="background:${x.c}"></i>${x.n}</span>`).join('')}</div></div><div class="cs">${chips.map(([a,b])=>`<div><small>${a}</small><b>${b}</b></div>`).join('')}</div>${body}</div>`;
+const scope=()=>br===ALL?'كل الفروع':esc(br);
+function chartRev(){
+ const D=yearSeries(),T=D.reduce((a,d)=>a+d.rev,0),A=D.filter(d=>d.rev>0),best=A.length?A.reduce((b,d)=>d.rev>b.rev?d:b):null;
+ const L=[{k:'cash',n:'الكاش الفعلي',c:'#0b7285'},{k:'net',n:'الشبكة',c:'#1864ab'},{k:'del',n:'شركات التوصيل',c:'#e8590c'}];
+ return ccard(`📊 الإيرادات الشهرية — ${yr}`,`${scope()} · اضغط على أي شهر للانتقال إليه`,L,[['إجمالي السنة',money(T)],['متوسط الشهر',A.length?money(T/A.length):'—'],['أعلى شهر',best?`${best.n} (${money(best.rev)})`:'—']],T>0?barSVG(D,L,'stack'):'<div class="emp">لا توجد إيرادات مسجلة في هذه السنة بعد.</div>');
+}
+function chartCost(){
+ const D=yearSeries(),R=D.reduce((a,d)=>a+d.rev,0),O=D.reduce((a,d)=>a+d.op,0);
+ const L=[{k:'rev',n:'الإيرادات',c:'#087f5b'},{k:'op',n:'التكاليف التشغيلية',c:'#c2410c'}];
+ return ccard(`⚖️ التكاليف التشغيلية مقابل الإيرادات — ${yr}`,`${scope()} · التكاليف التشغيلية = المصروفات التشغيلية + الرواتب + المصروفات الأخرى`,L,[['إجمالي الإيرادات',money(R)],['التكاليف التشغيلية',money(O)],['نسبتها إلى الإيرادات',R?pct(O,R):'—'],['الفرق',money(R-O)]],(R>0||O>0)?barSVG(D,L,'group'):'<div class="emp">لا توجد بيانات في هذه السنة بعد.</div>');
+}
+function pgHome(){
+ const m=CALC(br,yr,mi),R=m.rev;
+ const T=(ic,n,v,c)=>`<div class="tl" style="--c:${c}"><div class="tt"><span class="ti">${ic}</span><span class="tn">${n}</span></div><div class="tv">${V(money(v))}</div><div class="tp">${VI(pct(v,R))}<span class="tx">من إجمالي الإيرادات</span></div><div class="bar"><i style="width:${R>0?Math.max(0,Math.min(100,v/R*100)).toFixed(1):0}%"></i></div></div>`;
+ const big=`<div class="bigt"><div class="bi">💰</div><div><small>إجمالي الإيرادات — ${AR[mi]} ${yr}</small><div class="bv">${V(money(R))}</div></div></div>`;
+ const tiles=`<div class="tg">${T('💵','إيرادات الكاش (الفعلي)',m.cash,'#0b7285')}${T('💳','إيرادات الشبكة (الموازنة)',m.net,'#1971c2')}${[['jz','جاهز'],['hs','هنجرستيشن'],['kt','كيتا'],['nj','نينجا']].map(([k,n])=>T('🚚',n,m.dl[k],DL.find(x=>x[0]===k)[2])).join('')}</div>`;
+ const fdBox=`<div class="card fdb"><b>🧾 فروقات فواتير</b> <span class="tx">رقم يدوي يُرحَّل إلى المصروفات غير الغذائية في قائمة الدخل</span>${br===ALL?`<div class="tv">${V(money(m.fd))}</div>`:`<div style="margin-top:8px">${IN('iv:op:fd',(mo(br,yr,mi).op||{}).fd)}</div>`}</div>`;
+ const hint=R>0?'':`<div class="card"><p class="hint">لا توجد إيرادات لهذا الشهر بعد. أدخلها من صفحة <b>تفاصيل المبيعات</b>${br===ALL?' بعد اختيار فرع':''}.</p></div>`;
+ return `<div class="xbar">${btn('xlAll','⬇ تصدير كل الأقسام Excel')}</div>`+big+tiles+fdBox+hint+`<h3 style="color:#14121f;margin:14px 4px 6px">⚙️ الصفحات</h3><div class="gn">${NAVX().map(([g,t,i,c])=>`<button class="nav" data-go="${g}" style="--c:${c}"><span>${i}</span>${t}</button>`).join('')}</div>`;
+}
+function pgSales(){
+ if(br===ALL)return ph('📋 جدول تفاصيل المبيعات')+needBr();
+ const M=mo(br,yr,mi),sm=k=>M.days.reduce((a,d)=>a+num(d[k]),0),f=x=>V(fmt(x),x<0?'neg':'');
+ let T={tot:0,t2:0,d1:0,d2:0,d3:0};
+ const rows=M.days.map((d,i)=>{const tot=DL.reduce((a,[k])=>a+num(d[k]),0)+num(d.net)+num(d.cash)-num(d.disc),d1=num(d.bud)-num(d.bank),d2=num(d.net)-num(d.bud),d3=num(d.cash)-num(d.act);const t2=DL.reduce((a,[k])=>a+num(d[k]),0)+num(d.cash)+num(d.bud);T.tot+=tot;T.t2+=t2;T.d1+=d1;T.d2+=d2;T.d3+=d3;
+  return`<tr><td>${IN(`d:${i}:d`,d.d,'date')}</td>${DL.map(([k])=>`<td>${IN(`d:${i}:${k}`,d[k])}</td>`).join('')}${['net','cash','ord','disc'].map(k=>`<td>${IN(`d:${i}:${k}`,d[k])}</td>`).join('')}<td>${V(fmt(tot))}</td><td>${V(fmt(t2))}</td><td>${IN(`d:${i}:bud`,d.bud)}</td><td>${IN(`d:${i}:bank`,d.bank)}</td><td>${f(d1)}</td><td>${f(d2)}</td><td>${IN(`d:${i}:act`,d.act)}</td><td>${f(d3)}</td><td>${f(d2+d3)}</td><td><button class="del" data-act="delDay:${i}">🗑</button></td></tr>`}).join('');
+ const h=TH('التاريخ')+DL.map(([k,n])=>TH(n,'a')).join('')+TH('الشبكة بالنظام','a')+TH('الكاش بالنظام','a')+TH('عدد الطلبات','a')+TH('الخصم','a')+TH('صافي المبيعات شامل الضريبة','b')+TH('المبيعات شامل الموازنة','b')+TH('الموازنة','c')+TH('البنك','c')+TH('فرق الموازنة والبنك','d')+TH('فرق الشبكة والموازنة','d')+TH('الكاش الفعلي','c')+TH('فرق الكاش والكاش الفعلي','d')+TH('نتيجة فروقات الشبكة والكاش','e')+TH('');
+ const foot=`<tfoot><tr><td>الإجمالي</td>${DL.map(([k])=>`<td>${V(fmt(sm(k)))}</td>`).join('')}${['net','cash','ord','disc'].map(k=>`<td>${V(fmt(sm(k)))}</td>`).join('')}<td>${V(fmt(T.tot))}</td><td>${V(fmt(T.t2))}</td><td>${V(fmt(sm('bud')))}</td><td>${V(fmt(sm('bank')))}</td><td>${f(T.d1)}</td><td>${f(T.d2)}</td><td>${V(fmt(sm('act')))}</td><td>${f(T.d3)}</td><td>${f(T.d2+T.d3)}</td><td></td></tr></tfoot>`;
+  const mm=calc1(br,yr,mi),dd=mm.sk+mm.sb-mm.rev,splitCard=`<div class="card" style="border-top:6px solid #d9480f"><h3>☕🥐 مبيعات البن ومنتجات المطبخ (إدخال يدوي للشهر)</h3><div class="fm"><label>مبيعات البن (${S.cur})${IN('sb',M.sb)}</label><label>مبيعات منتجات المطبخ (${S.cur})${IN('sk',M.sk)}</label><label>مجموع التصنيفين<b>${V(money(mm.sk+mm.sb))}</b></label><label>إجمالي الإيرادات<b>${V(money(mm.rev))}</b></label><label>الفرق<b>${V(money(dd),dd?'neg':'pos')}</b></label></div><p class="hint">أدخل مبيعات كل تصنيف للشهر كله. تكلفة البن والمطبخ تُؤخذ تلقائياً من تكلفة المبيعات لكل تصنيف (الجرد والفواتير والهالك). تظهر في صفحة التحليل مع نسبة التكلفة إلى المبيعات والمقارنة بالشهور السابقة. الفرق يوضح مدى تطابق مجموع التصنيفين مع إجمالي الإيرادات (للمراجعة فقط).</p></div>`;
+ return ph(`📋 جدول تفاصيل المبيعات: ${AR[mi]} ${yr}`,btn('addDay','＋ إضافة يوم')+' '+btn('xlSales','⬇ Excel')+' ')+splitCard+`<div class="card"><p class="hint">الفرق = القيمة بالنظام − الفعلي (الموجب يعني نقصاً في الفعلي). نتيجة الفروقات = فرق الشبكة والموازنة + فرق الكاش. المبيعات شامل الموازنة = شركات التوصيل + الكاش بالنظام + الموازنة (بدل الشبكة). إيرادات الشبكة بالرئيسية = إجمالي الموازنة، وإيرادات الكاش = إجمالي الكاش الفعلي.</p>${TB(h,rows||'<tr><td colspan="20">لا توجد أيام. أضف يوماً.</td></tr>',foot)}</div>`;
+}
+const KEYUI=()=>SBON?'':`<details class="fm" style="display:block"><summary style="cursor:pointer;font-weight:800">⚙ إعداد القراءة الآلية بمفتاح Claude API (لنسخة GitHub أو خارج Claude)</summary><p class="hint">داخل Claude لا تحتاج مفتاحاً. خارجه أدخل مفتاح API الخاص بك ليُستخدم للقراءة. يُحفظ المفتاح في هذا المتصفح فقط ويُرسل إلى Anthropic مباشرة، ويُحسب الاستخدام على حسابك. استخدمه على جهازك الشخصي فقط ولا تتركه على جهاز مشترك.</p><input type="password" data-b="key" placeholder="sk-ant-..." value="${esc(getKey())}" style="width:min(420px,100%);padding:7px 10px;border:2px solid var(--line);border-radius:10px"></details>`;
+const costForm=()=>`<div class="card wr"><h3>🧾 تسجيل فاتورة كتكلفة فقط (بدون بنود)</h3><p class="hint">للفواتير التي لا تريد تفصيل أصنافها: تُسجَّل بتاريخها ورقمها ومبلغها شامل الضريبة، وتُحتسب مباشرة ضمن تكلفة مبيعات القسم المختار في هذا الشهر، ولا تؤثر على كميات الجرد.</p><div class="fm"><label>القسم<select id="cf_t"><option value="bean">البن</option><option value="wh">أصناف المستودع</option><option value="kit">منتجات المطبخ</option></select></label><label>التاريخ<input id="cf_d" type="date" value="${today()}01"></label><label>رقم الفاتورة<input id="cf_n" type="text"></label><label>المورد<input id="cf_s" type="text"></label><label>المبلغ شامل الضريبة<input id="cf_a" type="number" step="any"></label><label>الضريبة<input id="cf_x" type="number" step="any"></label><label>المرفق (اختياري)<input id="cf_f" type="file" accept="application/pdf,image/*"></label>${btn('addCost','＋ تسجيل كتكلفة')}</div></div>`;
+const chk=v=>{if(!v.hi)return'';if(v.inc)return'⚠ قد تكون ممتدة على صفحات أخرى، راجع الإجمالي';const t=num(v.tot),x=num(v.tax);if(v.ai&&!t)return'⚠ لم يُقرأ الإجمالي';if(t>0&&x>0&&Math.abs(x-t*15/115)>Math.max(1,t*.01))return'⚠ راجع الضريبة (ليست 15%)';return v.ai?'✅ قُرئت من الملف':''};
+function pgExp(){
+ if(br===ALL)return ph('🧾 المصروفات والفواتير')+needBr();
+ const M=mo(br,yr,mi),m=calc1(br,yr,mi),sel=(i,f,a)=>`<select data-b="v:${i}:${f}">${a.map(([v,t,on])=>`<option value="${v}"${on?' selected':''}>${t}</option>`).join('')}</select>`;
+ const rows=M.inv.map((v,i)=>`<tr><td>${IN(`v:${i}:d`,v.d,'date')}</td><td>${IN(`v:${i}:no`,v.no,'text')}</td><td>${IN(`v:${i}:sup`,v.sup,'text')}</td><td>${sel(i,'t',[['food','غذائية',v.t==='food'],['petty','نثرية',v.t==='petty']])}</td><td>${sel(i,'hi',[['1','بفاتورة',v.hi],['0','بدون فاتورة',!v.hi]])}</td><td>${IN(`v:${i}:tot`,v.tot)}</td><td>${IN(`v:${i}:tax`,v.tax)}</td><td>${V(fmt(num(v.tot)-num(v.tax)))}</td><td>${v.hi?(v._busy?'⏳ جارٍ قراءة الفاتورة… <b class="prog"></b><br><small class="step"></small>':(v.f?`<button class="back" data-act="view:${i}">📎 ${esc(v.fn||'عرض')}</button> `:'')+`<label class="ck">⬆ ${v.f?'استبدال':'رفع'} الفاتورة<input type="file" accept="application/pdf,image/*" data-att="${i}" hidden></label> ${VS(esc(chk(v)))}${v._err?`<div class="alert">${esc(v._err)}</div>`:''}`):'—'}</td><td><button class="del" data-act="delInv:${i}">🗑</button></td></tr>`).join('');
+ const h=TH('التاريخ')+TH('رقم الفاتورة')+TH('اسم المورد')+TH('النوع')+TH('الفاتورة')+TH('الإجمالي بالضريبة','a')+TH('الضريبة','d')+TH('المبلغ بدون الضريبة','b')+TH('المرفق (يُقرأ تلقائياً)')+TH('');
+ return ph(`🧾 المصروفات والفواتير: ${AR[mi]} ${yr}`,btn('addInv','＋ إضافة فاتورة')+' '+btn('xlInv','⬇ Excel')+' ')+`<div class="g4">${[['غذائية بفاتورة','fi'],['غذائية بدون فاتورة','fn'],['نثرية بفاتورة','pi'],['نثرية بدون فاتورة','pn']].map(([n,k])=>bx(n,money(m.ex[k]),undefined,k[0]==='f'?'#2f9e44':'#e8590c','🧾')).join('')}${bx('الإجمالي',money(m.exT),undefined,'#5f3dc4','💳')}</div><div class="card"><p class="hint">عند رفع فاتورة (PDF أو صورة) على سطر "بفاتورة" تُقرأ بواسطة Claude وتُعبّأ كل بيانات الفاتورة (التاريخ والرقم والمورد والإجمالي والضريبة). إذا احتوى الملف على أكثر من فاتورة يُنشأ سطر مستقل لكل فاتورة. راجع الأرقام قبل الاعتماد، وكلها قابلة للتعديل. <button class="back" data-act="diag">🔍 فحص القراءة الآلية</button></p>${KEYUI()}${TB(h,rows||'<tr><td colspan="10">لا توجد فواتير.</td></tr>')}</div>`;
+}
+function itemForm(){return`<div class="fm wr"><input id="ni_n" type="text" placeholder="اسم الصنف"><select id="ni_u" title="الوحدة">${unitOpts(UNSEL||'كجم')}</select><input id="ni_u2" type="text" placeholder="وحدة جديدة" style="width:120px">${btn('addUnit','＋ وحدة')}<input id="ni_p" type="number" step="any" placeholder="السعر"><select id="ni_t"><option value="bean">بن</option><option value="wh">أصناف المستودع</option><option value="kit">منتجات المطبخ</option></select>${btn('addItem','＋ إضافة صنف')}</div>`}
+function draftUI(){
+ const d=draft;
+ if(d.st==='reading')return`<div class="card" style="border:3px solid #c2255c"><p>⏳ جارٍ قراءة الفاتورة <b>${esc(d.fn)}</b>… قد يستغرق دقيقة. <b class="prog"></b> ${btn('cancelDraft','إلغاء')}<br><small class="step"></small></p></div>`;
+ const rows=d.lines.map((l,i)=>{const m=matchItem(l.n,d.t);return`<tr><td>${IN(`x:${i}:n`,l.n,'text')}<small>${VS(m?'✔ مطابق: '+esc(m.n):'＋ صنف جديد')}</small></td><td>${IN(`x:${i}:q`,l.q)}</td><td>${USEL(`x:${i}:u`,l.u)}</td><td>${IN(`x:${i}:a`,l.a)}</td><td>${V(money(num(l.q)?num(l.a)/num(l.q):0))}</td><td><button class="del" data-act="delX:${i}">🗑</button></td></tr>`}).join('');
+ const sm=d.lines.reduce((a,l)=>a+num(l.a),0),diff=num(d.total)-sm,okk=Math.abs(diff)<0.01&&d.lines.length&&d.lines.every(l=>l.n.trim()&&num(l.q)>0);
+ return`<div class="card" style="border:3px solid #c2255c"><h3>🔎 مراجعة الفاتورة: ${esc(d.fn)} (${TYP[d.t][1]} ${TYP[d.t][0]})${d.cnt>1?` <span class="tag">فاتورة ${d.pos} من ${d.cnt}</span>`:''}</h3>${d.err?`<div class="alert">${esc(d.err)}</div>`:''}${d.note?`<p class="hint" style="color:#c92a2a">${esc(d.note)}</p>`:''}
+ <div class="fm"><label>التاريخ ${IN('x:d',d.d,'date')}</label><label>رقم الفاتورة ${IN('x:no',d.no,'text')}</label><label>المورد ${IN('x:sup',d.sup,'text')}</label><label>الإجمالي شامل الضريبة ${IN('x:total',d.total)}</label><label>الضريبة ${IN('x:tax',d.tax)}</label></div>
+ ${TB(TH('الصنف')+TH('الكمية','a')+TH('الوحدة')+TH('الإجمالي شامل الضريبة','b')+TH('تكلفة الوحدة','e')+TH(''),rows)}
+ <div class="fm">${btn('addX','＋ بند')} <button class="back" data-act="spread">توزيع الفرق على البنود تناسبياً</button></div>
+ <div class="sum"><div style="--c:#1864ab"><small>مجموع البنود</small>${V(money(sm))}</div><div style="--c:#6741d9"><small>مبلغ الفاتورة</small>${V(money(num(d.total)))}</div><div style="--c:${okk?'#087f5b':'#c92a2a'}"><small>الفرق</small>${V(money(diff))}</div></div>
+ <div class="fm">${VS(`<button class="pick" data-act="okPur"${okk?'':' disabled'}>✔ اعتماد وإضافة للمخزون</button>`)} ${btn('cancelDraft','إلغاء الكل')} ${dq.length?`<button class="back" data-act="skipDraft">⏭ تخطي هذه الفاتورة</button>`:''} <button class="back" data-act="draftCost">🧾 تسجيلها كتكلفة فقط</button> <span class="hint">لا يمكن الاعتماد إلا عند تساوي مجموع البنود مع مبلغ الفاتورة.</span></div></div>`;
+}
+function pgBuy(){
+ if(br===ALL)return ph('📦 المخزون')+needBr();
+ const M=mo(br,yr,mi),P=calc1(br,yr,mi).pur,tot=P.bean+P.kit+P.wh;
+ const g=t=>{const a=IT(br).filter(i=>i.t===t);return`<tr class="gr"><td colspan="6">${TYP[t][1]} ${TYP[t][0]}: ${V(money(P[t]))}</td></tr>`+a.map(it=>{const s=srow(br,yr,mi,it);return`<tr><td><b>${esc(it.n)}</b><small>${esc(it.u)}</small></td><td>${IN(`i:${it.id}:p`,it.p)}</td><td>${V(money(s.P))}</td><td>${IN(`s:${it.id}:p`,s.pm||'')}</td><td>${V(fq(s.pq))}</td><td>${V(money(s.pv))}</td><td><button class="del" data-act="delItem:${it.id}">🗑</button></td></tr>`}).join('')};
+ const inv=M.pur.map((v,i)=>`<div class="card"><div class="pt"><b>${TYP[v.t][1]} ${esc(v.sup||'—')} · ${esc(v.d)}${v.no?' · رقم '+esc(v.no):''} ${v.cost?'<span class="tag">تكلفة فقط</span>':''}</b><span>${money(v.total)} <small>(ضريبة ${money(v.tax)})</small> ${v.f?`<button class="back" data-act="viewP:${i}">📎</button>`:''} <button class="del" data-act="delPur:${i}">🗑</button></span></div>${v.cost?'':TB(TH('الصنف')+TH('الكمية','a')+TH('الوحدة')+TH('الإجمالي شامل الضريبة','b'),v.lines.map(l=>`<tr><td>${esc(l.n)}</td><td>${fq(l.q)}</td><td>${esc(l.u)}</td><td>${money(l.a)}</td></tr>`).join(''))}</div>`).join('');
+ return ph(`📦 المخزون: ${AR[mi]} ${yr}`,V(money(tot),'pos')+' '+btn('xlBuy','⬇ Excel')+' ')+`<div class="card wr"><h3>⬆ رفع فاتورة للمخزون</h3><div class="fm"><select id="pt"><option value="bean">فاتورة بن</option><option value="wh">فاتورة أصناف المستودع</option><option value="kit">فاتورة منتجات المطبخ</option></select><label class="pick">⬆ اختيار الفاتورة (PDF أو صورة)<input type="file" accept="application/pdf,image/*" data-pur hidden></label></div><p class="hint">تُقرأ كل الفواتير داخل الملف (حتى لو كان فيه أكثر من فاتورة)، وتظهر واحدة تلو الأخرى للمراجعة والاعتماد: البنود والكميات والتكلفة شاملة الضريبة. لا تُضاف الفاتورة إلا إذا ساوى مجموع بنودها مبلغ الفاتورة. <button class="back" data-act="diag">🔍 فحص القراءة الآلية</button></p>${KEYUI()}</div>${costForm()}${draft?draftUI():''}${inv?`<h3 style="color:#14121f;margin:6px 4px">🧾 فواتير المخزون المعتمدة</h3>${inv}`:''}<div class="card"><h3>📦 إجمالي مشتريات المخزون حسب الصنف</h3><p class="hint">القيمة = قيمة الفواتير + (الكمية اليدوية × سعر الشهر). سعر الشهر = متوسط تكلفة الوحدة شاملة الضريبة من الفواتير، وإلا آخر سعر فاتورة، وإلا السعر الأساسي.</p>${TB(TH('الصنف')+TH('السعر الأساسي')+TH('سعر الشهر','e')+TH('مشتريات يدوية (الكمية)','b')+TH('كمية الفواتير','b')+TH('القيمة','e')+TH(''),g('bean')+g('wh')+g('kit'))}${itemForm()}</div>`;
+}
+function pgStk(){
+ if(br===ALL)return ph('✅ الجرد')+needBr();
+ let tv=0,to=0,tp=0,tc=0;
+ const g=t=>{const a=IT(br).filter(i=>i.t===t);return`<tr class="gr"><td colspan="9">${TYP[t][1]} ${TYP[t][0]}</td></tr>`+a.map(it=>{const s=srow(br,yr,mi,it),ov=s.o*s.P,cv=s.c===undefined?null:s.c*s.P;to+=ov;tp+=s.pv;if(s.v!==null){tv+=s.v;tc+=cv}return`<tr><td><b>${esc(it.n)}</b><small>${esc(it.u)}</small></td><td>${IN(`s:${it.id}:o`,s.o)}</td><td>${V(money(ov))}</td><td>${V(fq(s.p))}</td><td>${V(money(s.pv))}</td><td>${IN(`s:${it.id}:c`,s.c)}</td><td>${V(cv===null?'—':money(cv))}</td><td>${V(s.q===null?'—':fq(s.q))}</td><td>${V(s.v===null?'—':money(s.v))}</td></tr>`}).join('')};
+ const rows=g('bean')+g('wh')+g('kit');
+ const head=TH('الصنف')+TH('الكمية أول المدة','a')+TH('القيمة أول المدة','a')+TH('المشتريات (الكمية)','b')+TH('قيمة المشتريات','b')+TH('الكمية آخر المدة (الجرد)','c')+TH('القيمة آخر المدة','c')+TH('كمية الاستهلاك','d')+TH('قيمة الاستهلاك','e');
+ const foot=`<tfoot><tr><td>الإجمالي</td><td></td><td>${V(money(to))}</td><td></td><td>${V(money(tp))}</td><td></td><td>${V(money(tc))}</td><td></td><td>${V(money(tv))}</td></tr><tr><td colspan="4">إجمالي قيمة المشتريات</td><td>${VS(money(tp))}</td><td colspan="3">إجمالي قيمة الاستهلاك (قبل الهالك)</td><td>${VS(money(tv))}</td></tr></tfoot>`;
+ return ph(`✅ الجرد: ${AR[mi]} ${yr}`,btn('xlStk','⬇ Excel')+' ')+`<div class="card"><p class="hint">الكمية أول المدة تُدخل يدوياً أول مرة ثم تأتي تلقائياً من جرد الشهر السابق. المشتريات (الكمية وقيمتها) من صفحة المخزون. الكمية آخر المدة هي جرد آخر الشهر. كمية الاستهلاك = أول المدة + المشتريات − آخر المدة. القيم = الكمية × سعر الشهر (وقيمة المشتريات من الفواتير نفسها). إجمالي قيمة الاستهلاك يحسب الأصناف التي أُدخل جردها فقط. هالك البن والمطبخ يُدخل كرقم من صفحة الهالك ويُضاف لتكلفة المبيعات.</p>${TB(head,rows,foot)}${itemForm()}</div>`;
+}
+function lines(k,arr,title,c){return`<div class="card"><h3>${title} ${btn('add'+k,'＋ إضافة بند')}</h3>${TB(TH('البند')+TH('المبلغ',c)+TH(''),arr.map((x,i)=>`<tr><td>${IN(`${k}:${i}:n`,x.n,'text')}</td><td>${IN(`${k}:${i}:a`,x.a)}</td><td><button class="del" data-act="del${k}:${i}">🗑</button></td></tr>`).join('')||'<tr><td colspan="3">لا توجد بنود.</td></tr>',`<tfoot><tr><td>الإجمالي</td><td>${V(money(arr.reduce((a,x)=>a+num(x.a),0)))}</td><td></td></tr></tfoot>`)}</div>`}
+function pgMan(){
+ if(br===ALL)return ph('🧮 الهالك والمصروفات والرواتب')+needBr();
+ const M=mo(br,yr,mi),wc=(ic,t,k,c)=>`<div class="card" style="border-top:6px solid ${c}"><h3>${ic} ${t}</h3><div class="fm">${IN(k,M[k])} <b>${S.cur}</b></div><p class="hint">رقم إجمالي بدون تفصيل الأصناف، يدخل مباشرة في ${k==='wb'?'تكلفة مبيعات البن':'تكلفة مبيعات منتجات المطبخ'}.</p></div>`;
+ return ph(`🧮 الهالك والمصروفات والرواتب: ${AR[mi]} ${yr}`,btn('xlMan','⬇ Excel')+' ')+`<div class="g2">${wc('☕','هالك البن','wb','#7a4f2e')}${wc('🥐','هالك المطبخ','wk','#d9480f')}</div>${lines('o',M.ops,'🏢 المصروفات التشغيلية','a')}${lines('l',M.sal,'👥 الرواتب','c')}<div class="card"><h3>مصروفات الإهلاك والإطفاء</h3><div class="fm">${IN('dep',M.dep)} <span class="hint">تظهر في قائمة الدخل ويُحسب صافي الدخل بها وبدونها.</span></div></div>`;
+}
+function pgCash(){
+ if(br===ALL)return ph('💵 تصفية عهدة الكاش')+needBr();
+ const m=calc1(br,yr,mi),rem=m.cash-m.exT;
+ return ph(`💵 تصفية عهدة الكاش: ${AR[mi]} ${yr}`,btn('xlCash','⬇ Excel')+' ')+`<div class="sum"><div style="--c:#0b7285"><small>إجمالي الكاش الفعلي</small>${V(money(m.cash))}</div><div style="--c:#2f9e44"><small>(−) المصروفات الغذائية</small>${V(money(m.ex.fi+m.ex.fn))}</div><div style="--c:#e8590c"><small>(−) المصروفات النثرية</small>${V(money(m.ex.pi+m.ex.pn))}</div><div style="--c:${rem<0?'#c92a2a':'#087f5b'}"><small>الرصيد المتبقي من الكاش</small>${V(money(rem))}</div></div><div class="card"><p class="hint">يتم خصم كل المصروفات الغذائية والنثرية (بفاتورة وبدون) من إجمالي الكاش الفعلي. تُسجل المصروفات من صفحة المصروفات والفواتير.</p></div>`;
+}
+const AI=[['إجمالي الإيرادات',m=>m.rev,'#087f5b'],['إيرادات التوصيل',m=>m.del,'#e8590c'],['إيرادات الكاش',m=>m.cash,'#0b7285'],['إيرادات الشبكة',m=>m.net,'#1864ab'],['تكلفة المبيعات',m=>m.costT,'#c2410c'],['الرواتب',m=>m.sal,'#6741d9'],['المصروفات التشغيلية',m=>m.ops,'#1864ab'],['إجمالي المصروفات',m=>m.expAll,'#c92a2a'],['صافي الدخل',m=>m.ni0,'#087f5b']];
+let cmp=null;
+const CATS=[['bean','☕','البن','sb','#7a4f2e'],['kit','🥐','منتجات المطبخ','sk','#d9480f']];
+const mAt=k=>{let mm=mi-k,yy=yr;while(mm<0){mm+=12;yy--}return{m:mm,y:yy,l:AR[mm]+' '+yy}};
+const dif=(c,p,bad,pp)=>{if(!p&&!c)return'—';const d=c-p;if(Math.abs(d)<0.005)return'<span>بدون تغيير</span>';const up=d>0,good=bad?!up:up,pc=pp?'':(p?` · ${Math.abs(d/p*100).toFixed(1)}%`:' · —');return`<span class="${good?'pos':'neg'}">${up?'▲ زيادة':'▼ نقص'} ${pp?Math.abs(d).toFixed(1)+' نقطة':money(Math.abs(d))}${pc}</span>`};
+function anaSplit(){
+ if(!cmp)cmp=[1,2,3];
+ const cur=CALC(br,yr,mi),warn=!cur.hs?`<div class="alert">لم تُدخل مبيعات البن والمطبخ لشهر ${AR[mi]}. أدخلها من <button class="back" data-go="sales">صفحة جدول تفاصيل المبيعات</button>.</div>`:'';
+ const box=([t,ic,n,sk,c])=>{const sales=cur[sk],cost=cur.cost[t],cr=sales?cost/sales*100:0,gp=sales-cost;return`<div class="sec" style="border-top:6px solid ${c}"><h3>${ic} ${n}</h3>${bx('مبيعات '+n,money(sales),pct(sales,cur.rev)+' من الإيرادات',c,ic)}<div class="arw">▼</div>${bx('تكلفة '+n,money(cost),'نسبة التكلفة إلى مبيعات التصنيف: '+pct(cost,sales),'#c2410c','🧾')}<div class="arw">▼</div>${bx('هامش الربح الإجمالي',money(gp),pct(gp,sales),gp<0?'#c92a2a':'#087f5b','💰')}</div>`};
+ const wh=`<p class="hint">تكلفة أصناف المستودع (غير موزعة على التصنيفين): <b>${money(cur.cost.wh)}</b> (${pct(cur.cost.wh,cur.rev)} من الإيرادات). إجمالي تكلفة المبيعات ${money(cur.costT)}.</p>`;
+ const offs=[];for(let k=1;k<=11;k++)offs.push(k);
+ const picks=`<div class="fm">${offs.map(k=>`<label class="ck"><input type="checkbox" data-cmp="${k}"${cmp.includes(k)?' checked':''}>${mAt(k).l}</label>`).join('')}</div>`;
+ const sel=[...cmp].sort((a,b)=>a-b),C=sel.map(k=>{const q=mAt(k);return CALC(br,q.y,q.m)});
+ const tbl=([t,ic,n,sk,c])=>{
+  const cs=cur[sk],cc=cur.cost[t],cr=cs?cc/cs*100:0;
+  const rowS=`<tr><td><b>مبيعات ${n}</b></td><td>${money(cs)}</td>${C.map(m=>m.rev>0&&m.hs?`<td>${money(m[sk])}<small>${dif(cs,m[sk],false)}</small></td>`:`<td>${m.rev>0?'<small>لم تُدخل المبيعات</small>':'—'}</td>`).join('')}</tr>`;
+  const rowC=`<tr><td><b>تكلفة ${n}</b></td><td>${money(cc)}</td>${C.map(m=>m.rev>0?`<td>${money(m.cost[t])}<small>${dif(cc,m.cost[t],true)}</small></td>`:'<td>—</td>').join('')}</tr>`;
+  const rowR=`<tr><td><b>نسبة التكلفة إلى المبيعات</b></td><td>${pct(cc,cs)}</td>${C.map(m=>m.rev>0&&m.hs&&m[sk]?`<td>${pct(m.cost[t],m[sk])}<small>${dif(cr,m.cost[t]/m[sk]*100,true,true)}</small></td>`:'<td>—</td>').join('')}</tr>`;
+  return`<div class="card" style="border-top:6px solid ${c}"><h3>${ic} مقارنة ${n}: ${AR[mi]} ${yr} مع الشهور المختارة</h3>${TB(TH('البند')+TH(AR[mi]+' '+yr+' (الحالي)','b')+sel.map(k=>TH(mAt(k).l,'a')).join(''),rowS+rowC+rowR)}<p class="hint">تحت كل شهر سابق: الزيادة أو النقص في الشهر الحالي مقارنة بذلك الشهر، بالمبلغ والنسبة. زيادة المبيعات باللون الأخضر وزيادة التكلفة بالأحمر.</p></div>`};
+ return`<h3 style="color:#14121f;margin:6px 4px">☕🥐 تقسيم المبيعات والتكلفة: ${AR[mi]} ${yr}</h3>${warn}<div class="g2">${CATS.map(box).join('')}</div>${wh}<div class="card"><h3>📊 اختر الشهور السابقة للمقارنة</h3>${picks}</div>${sel.length?CATS.map(tbl).join(''):'<div class="card"><p class="hint">اختر شهراً سابقاً واحداً على الأقل.</p></div>'}`;
+}
+function incOf(m){
+ const L=[],h=t=>L.push({k:'h',t}),r=(t,a,inp)=>L.push({k:'r',t,a,inp}),T=(t,a)=>L.push({k:'t',t,a});
+ h('الإيرادات');r('إيرادات الكاش (الفعلي)',m.cash);r('إيرادات الشبكة (الموازنة)',m.net);DL.forEach(([k,n])=>r('إيرادات '+n,m.dl[k]));T('إجمالي الإيرادات',m.rev);
+ h('تكلفة المبيعات (من المصروفات الغذائية)');r('مصروفات غذائية بفاتورة',m.ex.fi);r('مصروفات غذائية بدون فاتورة',m.ex.fn);T('إجمالي تكلفة المبيعات',m.costT);
+ h('المصروفات التشغيلية');r('الرواتب',m.opSal,'op:sal');r('الإيجارات',m.opRent,'op:rent');r('المرافق',m.opUtil,'op:util');DL.forEach(([k,n])=>r('مصروفات '+n,m.dx[k],'dx:'+k));T('إجمالي المصروفات التشغيلية',m.opT);
+ h('المصروفات النثرية');r('مصروفات نثرية',m.nf);
+ T('إجمالي المصروفات',m.expAll);T('صافي الدخل',m.ni0);
+ return L;
+}
+function incList(){const m=CALC(br,yr,mi);return{L:incOf(m),R:m.rev}}
+function pgInc(){
+ const{L,R}=incList(),M=br===ALL?null:mo(br,yr,mi);
+ const rows=L.map(x=>{
+  if(x.k==='h')return`<tr class="gr"><td colspan="3">${x.t}</td></tr>`;
+  let cell=V(money(x.a));
+  if(x.inp&&M){const[g,f]=x.inp.split(':'),raw=M[g]&&M[g][f];cell=`<span class="ie">${IN('iv:'+x.inp,has(raw)?raw:(x.a||''))} <b>${S.cur}</b></span>`}
+  return`<tr${x.k==='t'?' class="gr"':''}><td>${x.t}</td><td>${cell}</td><td>${V(pct(x.a,R))}</td></tr>`}).join('');
+ return ph(`📑 قائمة الدخل: ${AR[mi]} ${yr}`,btn('xlInc','⬇ Excel')+' ')+`<div class="card"><p class="hint">${M?'الإيرادات تُحسب من صفحة تفاصيل المبيعات، وتكلفة المبيعات والمصروفات غير الغذائية من صفحة المصروفات والفواتير. الرواتب والإيجارات والمرافق ومصروفات شركات التوصيل تُدخل يدوياً هنا (خانات الإدخال).':'عرض مجمّع لكل الفروع. اختر فرعاً لإدخال أو تعديل الخانات اليدوية.'}</p>${TB(TH('البند')+TH('المبلغ','b')+TH('النسبة إلى إجمالي الإيرادات','a'),rows)}</div>`;
+}
+function pgAna(){
+ if(!ana){ana=[];for(let i=0;i<12;i++)if(CALC(br,yr,i).rev>0||CALC(br,yr,i).expAll>0)ana.push(i)}
+ const sel=[...ana].sort((a,b)=>a-b),C=sel.map(i=>CALC(br,yr,i)),LS=C.map(incOf),n=LS.length;
+ const arrow=d=>d===null?'':` · <bdi dir="ltr" class="${d>=0?'up':'dn'}">${d>=0?'▲':'▼'} ${Math.abs(d).toFixed(1)}%</bdi>`;
+ const rows=n?LS[0].map((x,ri)=>{
+  if(x.k==='h')return`<tr class="gr"><td colspan="${n+1+(n>1?2:0)}">${x.t}</td></tr>`;
+  const cells=LS.map((L,j)=>{const v=L[ri].a,pv=j?LS[j-1][ri].a:null,d=pv?(v-pv)/Math.abs(pv)*100:null;return`<td>${V(money(v))}<small>${V(pct(v,C[j].rev)+arrow(d))}</small></td>`}).join('');
+  let tail='';if(n>1){const f=LS[0][ri].a,l=LS[n-1][ri].a,dd=l-f,dp=f?dd/Math.abs(f)*100:null;tail=`<td>${V(money(dd))}</td><td>${dp===null?'—':`<bdi dir="ltr" class="${dp>=0?'up':'dn'}">${dp>=0?'▲':'▼'} ${Math.abs(dp).toFixed(1)}%</bdi>`}</td>`}
+  return`<tr${x.k==='t'?' class="gr"':''}><td>${x.t}</td>${cells}${tail}</tr>`}).join(''):'';
+ const head=TH('البند')+sel.map(i=>TH(AR[i],'a')).join('')+(n>1?TH(`الفرق (${AR[sel[n-1]]} − ${AR[sel[0]]})`,'b')+TH('نسبة الفرق','b'):'');
+ return ph('📈 تحليل قائمة الدخل',btn('xlAna','⬇ Excel')+' ')+`<div class="card"><p class="hint">اختر الشهور للمقارنة. تحت كل رقم نسبته إلى إيرادات نفس الشهر ثم نسبة التغير عن الشهر المحدد قبله. آخر عمودين: الفرق بين آخر شهر وأول شهر محددين.</p><div class="fm">${AR.map((nm,i)=>`<label class="ck"><input type="checkbox" data-ck="${i}"${ana.includes(i)?' checked':''}>${nm}</label>`).join('')}</div>${n?TB(head,rows):'<p class="hint">اختر شهراً واحداً على الأقل.</p>'}</div>`;
+}
+function pgSalesL(){
+ if(br===ALL)return ph('📋 تفاصيل المبيعات')+needBr();
+ const M=mo(br,yr,mi),sm=k=>M.days.reduce((a,d)=>a+num(d[k]),0),f=x=>V(fmt(x),x<0?'neg':'');
+ const DD=[['jz','جاهز'],['hs','هنجرستيشن'],['kt','كيتا'],['nj','نينجا']];
+ let T1=0,T2=0;
+ const rows=M.days.map((d,i)=>{const d1=num(d.net)-num(d.bud),d2=num(d.cash)-num(d.act);T1+=d1;T2+=d2;
+  return`<tr><td>${IN(`d:${i}:d`,d.d,'date')}</td>${['net','bud','cash','act'].map(k=>`<td>${IN(`d:${i}:${k}`,d[k])}</td>`).join('')}<td>${f(d1)}</td><td>${f(d2)}</td><td>${f(d1+d2)}</td>${DD.map(([k])=>`<td>${IN(`d:${i}:${k}`,d[k])}</td>`).join('')}<td><button class="del" data-act="delDay:${i}">🗑</button></td></tr>`}).join('');
+ const h=TH('التاريخ')+TH('الشبكة بالنظام','a')+TH('الموازنة','c')+TH('الكاش بالنظام','a')+TH('الكاش الفعلي','c')+TH('فرق الشبكة (النظام − الموازنة)','d')+TH('فرق الكاش (النظام − الفعلي)','d')+TH('نتيجة فروقات الشبكة والكاش','e')+DD.map(([k,n])=>TH(n,'b')).join('')+TH('');
+ const foot=`<tfoot><tr><td>الإجمالي</td>${['net','bud','cash','act'].map(k=>`<td>${V(fmt(sm(k)))}</td>`).join('')}<td>${f(T1)}</td><td>${f(T2)}</td><td>${f(T1+T2)}</td>${DD.map(([k])=>`<td>${V(fmt(sm(k)))}</td>`).join('')}<td></td></tr></tfoot>`;
+ return ph(`📋 تفاصيل المبيعات: ${AR[mi]} ${yr}`,btn('addDay','＋ إضافة يوم')+' '+btn('xlSales','⬇ Excel')+' ')+`<div class="card"><p class="hint">الفرق = القيمة بالنظام − الفعلي (الموجب يعني نقصاً في الفعلي). نتيجة الفروقات = فرق الشبكة + فرق الكاش. إيرادات الشبكة في الرئيسية وقائمة الدخل = إجمالي الموازنة، وإيرادات الكاش = إجمالي الكاش الفعلي. شركات التوصيل تُدخل يدوياً.</p>${TB(h,rows||'<tr><td colspan="13">لا توجد أيام. أضف يوماً.</td></tr>',foot)}</div>`;
+}
+const PAGES={users:pgUsers,log:pgLog,home:pgHome,sales:pgSalesL,exp:pgExp,ana:pgAna,inc:pgInc};
+function build(){
+ if(SBON){if(RECOV)return recUI();if(loading)return`<div class="card"><p>⏳ جارٍ التحميل…</p></div>`;if(!ME)return loginUI();if(!ME.role)return pendingUI();if(!S.branches.length)return`<div class="card"><p>لا توجد فروع مرتبطة بحسابك. تواصل مع المدير.</p>${HDR()}</div>`}
+ const rv=i=>CALC(br,yr,i).rev;
+ return`<header class="top"><input class="co" data-b="co" value="${esc(S.company)}" aria-label="اسم الشركة"${SBON&&ME.role!=='admin'?' readonly':''}><div class="tools"><button class="btn${pg==='home'?' on':''}" data-go="home">🏠 الرئيسية</button><select class="btn" data-b="yr" aria-label="السنة">${[2025,2026,2027,2028].map(y=>`<option value="${y}"${y===yr?' selected':''}>${y}</option>`).join('')}</select>${HDR()}</div></header>
+ <nav class="tabs">${S.branches.map((b,i)=>`<button class="tab${b===br?' on':''}" style="--c:${BCOL[i%6]}" data-br="${esc(b)}">${esc(b)}</button>`).join('')}${TABX()}</nav>
+ <div class="lay"><aside class="side"><h3>📅 الشهور</h3>${AR.map((n,i)=>`<button class="mb${i===mi?' on':''}" style="--h:${i*30}" data-mo="${i}"><span>${n}</span><small>${V(rv(i)>0?kf(rv(i)):'—')}</small></button>`).join('')}</aside><main>${PAGES[pg]()}<p class="note">${esc(msg)||(SBON?'البيانات محفوظة على السيرفر وتظهر لكل مستخدم حسب صلاحيته.':'البيانات تُحفظ في هذا المتصفح فقط.')}</p>${diagTxt?`<pre class="alert" style="white-space:pre-wrap">${esc(diagTxt)}</pre>`:''}</main></div>`;
+}
+const app=$('#root');
+let dq=[],draft=null;
+function render(){_c=0;app.innerHTML=build();lockUI()}
+function soft(){_c=0;const t=document.createElement('div');t.innerHTML=build();t.querySelectorAll('[data-c]').forEach(n=>{const l=app.querySelector(`[data-c="${n.dataset.c}"]`);if(!l)return;if(l.innerHTML!==n.innerHTML)l.innerHTML=n.innerHTML;const s=n.getAttribute('style');if(l.getAttribute('style')!==s){s?l.setAttribute('style',s):l.removeAttribute('style')}if(l.className!==n.className)l.className=n.className})}
+const today=()=>`${yr}-${String(mi+1).padStart(2,'0')}-`;
+const uid=()=>Date.now().toString(36)+Math.random().toString(36).slice(2,5);
+const norm=s=>String(s||'').replace(/[\u064B-\u065F\u0640]/g,'').replace(/[أإآ]/g,'ا').replace(/ة/g,'ه').replace(/ى/g,'ي').replace(/\s+/g,'').toLowerCase();
+function matchItem(name,t){const n=norm(name);if(n.length<2)return null;return IT(br).find(i=>i.t===t&&norm(i.n)===n)||IT(br).find(i=>{const k=norm(i.n);return i.t===t&&Math.min(n.length,k.length)>=3&&(k.includes(n)||n.includes(k))})||null}
+/* ---------- قراءة الفواتير بواسطة Claude ---------- */
+const PDFW='https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+async function filePages(file){
+ if((file.type||'').startsWith('image/'))return{pages:[{n:1,text:'',blob:file}],total:1,cut:false};
+ if(typeof pdfjsLib==='undefined')throw{code:'nopdf'};
+ pdfjsLib.GlobalWorkerOptions.workerSrc=PDFW;
+ const pdf=await pdfjsLib.getDocument({data:new Uint8Array(await file.arrayBuffer())}).promise,N=Math.min(pdf.numPages,40),pages=[];
+ for(let n=1;n<=N;n++){
+  setStep(`تحويل الصفحة ${n} من ${N}…`);
+  const pgx=await pdf.getPage(n);let text='';
+  try{const tc=await pgx.getTextContent();text=tc.items.map(i=>i.str).join(' ')}catch(e){}
+  const v0=pgx.getViewport({scale:1}),v=pgx.getViewport({scale:Math.min(2,1500/v0.width)}),cv=document.createElement('canvas');
+  cv.width=v.width;cv.height=v.height;await pgx.render({canvasContext:cv.getContext('2d'),viewport:v}).promise;
+  pages.push({n,text:text.trim(),blob:await new Promise(r=>cv.toBlob(r,'image/jpeg',.85))});
+ }
+ return{pages,total:pdf.numPages,cut:pdf.numPages>N};
+}
+const RULES=`أعد كائن JSON صالحاً واحداً فقط بلا أي شرح أو علامات markdown. حوّل كل الأرقام (حتى الهندية ٠١٢٣) إلى أرقام غربية. لا تخمّن: إن لم يظهر رقم ضع null. التاريخ بصيغة YYYY-MM-DD.`;
+const MULTI=`مهم: قد يحتوي الملف على عدة فواتير منفصلة (حتى في صفحة واحدة، أو فواتير متتالية من نفس المورد). أعد عنصراً مستقلاً لكل فاتورة بحسب رقمها، ولا تدمج فاتورتين، ولا تكتفِ بالأولى، ولا تكرر الفاتورة نفسها. الفاتورة الممتدة على عدة صفحات عنصر واحد. ضع "complete":false إن لم تظهر بداية الفاتورة أو إجمالياتها النهائية ضمن الصفحات المرسلة، وإلا true.`;
+const PROMPT={
+ exp:`أنت تقرأ فواتير مصروفات (عربية أو إنجليزية، ضريبة القيمة المضافة غالباً 15%).\n${MULTI}\nالشكل المطلوب (القيم للتوضيح فقط):\n{"invoices":[{"date":"2026-10-12","invoice_no":"INV-1001","supplier":"اسم البائع","total_incl_tax":1150.00,"total_tax":150.00,"total_excl_tax":1000.00,"complete":true}]}\nحيث total_incl_tax هو الإجمالي النهائي المستحق شاملاً الضريبة.\n${RULES}`,
+ pur:`أنت تقرأ فواتير مشتريات لكافيه (عربية أو إنجليزية، ضريبة القيمة المضافة غالباً 15%). استخرج كل بنود كل فاتورة كما هي دون دمج أو إضافة، وتجاهل صفوف المجاميع والخصم العام.\n${MULTI}\nالشكل المطلوب (القيم للتوضيح فقط):\n{"invoices":[{"date":"2026-10-12","invoice_no":"INV-1001","supplier":"اسم المورد","total_incl_tax":3220.00,"total_tax":420.00,"total_excl_tax":2800.00,"complete":true,"lines":[{"name":"بن برازيلي","qty":10,"unit":"كجم","net":1800.00,"tax":null,"total":null}]}]}\nحيث net مبلغ البند قبل الضريبة، وtax ضريبة البند إن ظهرت، وtotal إجمالي البند شاملاً الضريبة إن ظهر، وإلا null.\n${RULES}`
+};
+let diagTxt='';
+const setStep=t=>document.querySelectorAll('.step').forEach(e=>e.textContent=t);
+let _tm=null;
+const startProg=()=>{const t0=Date.now();clearInterval(_tm);_tm=setInterval(()=>document.querySelectorAll('.prog').forEach(e=>e.textContent=Math.round((Date.now()-t0)/1000)+' ث'),1000)};
+const stopProg=()=>clearInterval(_tm);
+async function diag(){
+ if(SBON){diagTxt=await diagSB();render();return}
+ const L=[],has_=typeof claude!=='undefined'&&claude.use;
+ L.push('بيئة Claude: '+(has_?'موجودة':'غير موجودة (الصفحة مفتوحة خارج Claude، فالقراءة الآلية لن تعمل)'));
+ let sample=null;try{sample=has_?await claude.use('sample'):null}catch(e){L.push('use(sample) فشل: '+(e&&(e.code||e.message)))}
+ L.push('قدرة القراءة (sample): '+(sample?'متاحة':'غير متاحة'));
+ if(sample){try{const l=await sample.limits();L.push('إرسال الصور: '+(l.images?'مسموح (حتى '+l.images.maxCount+' صور)':'غير مسموح'))}catch(e){L.push('limits فشل: '+(e&&(e.code||e.message)))}}
+ L.push('قارئ PDF: '+(typeof pdfjsLib!=='undefined'?'محمّل':'غير محمّل')+' · عامل القراءة: '+(globalThis.pdfjsWorker?'محمّل':'غير محمّل'));
+ L.push('مفتاح Claude API: '+(getKey()?'مُدخل':'غير مُدخل'));
+ {let ok='متاح';try{await idb.open()}catch(e){ok='غير متاح ('+((e&&e.name)||'')+') — لن يُحفظ المرفق لكن القراءة تعمل'}L.push('تخزين المرفقات: '+ok)}
+ L.push('مكتبة Excel: '+(window.XLSX?'محمّلة':'غير محمّلة'));
+ diagTxt=L.join('\n');render();
+}
+const KEYN='kafid_api_key';
+const getKey=()=>{try{return localStorage.getItem(KEYN)||''}catch(e){return ''}};
+const parseJson=t=>{const s=String(t).replace(/```json|```/g,'').trim(),a=s.indexOf('{'),b=s.lastIndexOf('}');try{return JSON.parse(s.slice(a,b+1))}catch(e){throw{code:'invalid_json',message:s.slice(0,120)}}};
+const normRes=x=>Array.isArray(x)?x:(x&&Array.isArray(x.invoices)?x.invoices:(x&&typeof x==='object'&&(x.total_incl_tax!==undefined||x.lines)?[x]:[]));
+const invKey=r=>{const n=String(r.invoice_no||'').replace(/\s/g,'').toLowerCase();return n?'n:'+n:'t:'+[r.date||'',norm(r.supplier||''),num(r.total_incl_tax)].join('|')};
+const invScore=x=>(x.complete===false?0:1000)+((x.lines||[]).length)+(num(x.total_incl_tax)>0?1:0);
+async function apiRead(file,kind){
+ setStep('تجهيز الملف…');
+ const b64=await new Promise((res,rej)=>{const r=new FileReader();r.onload=()=>res(String(r.result).split(',')[1]);r.onerror=()=>rej(r.error);r.readAsDataURL(file)});
+ const isPdf=file.type==='application/pdf'||/\.pdf$/i.test(file.name||'');
+ const part=isPdf?{type:'document',source:{type:'base64',media_type:'application/pdf',data:b64}}:{type:'image',source:{type:'base64',media_type:file.type||'image/jpeg',data:b64}};
+ setStep('إرسال الملف كاملاً إلى Claude API…');
+ let r;try{r=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'content-type':'application/json','x-api-key':getKey(),'anthropic-version':'2023-06-01','anthropic-dangerous-direct-browser-access':'true'},body:JSON.stringify({model:'claude-sonnet-5-5',max_tokens:16000,messages:[{role:'user',content:[part,{type:'text',text:PROMPT[kind]}]}]})})}catch(e){throw{code:'api_network',message:e.message}}
+ const j=await r.json().catch(()=>({}));
+ if(!r.ok)throw{code:'api_'+r.status,message:(j.error&&j.error.message)||r.statusText};
+ return{list:normRes(parseJson((j.content||[]).map(c=>c.text||'').join(''))),warn:'',pages:0};
+}
+async function fnRead(file,kind){
+ setStep('تجهيز الملف…');
+ if((file.type||'').startsWith('image/')&&file.size>1.5e6){
+  try{const bm=await createImageBitmap(file),k=Math.min(1,2000/Math.max(bm.width,bm.height)),cv=document.createElement('canvas');cv.width=Math.round(bm.width*k);cv.height=Math.round(bm.height*k);cv.getContext('2d').drawImage(bm,0,0,cv.width,cv.height);file=await new Promise(r=>cv.toBlob(r,'image/jpeg',.85))}catch(e){}
+ }
+ const b64=await new Promise((res,rej)=>{const r=new FileReader();r.onload=()=>res(String(r.result).split(',')[1]);r.onerror=()=>rej(r.error);r.readAsDataURL(file)});
+ const mime=file.type||'application/pdf';
+ if(b64.length>9e6)throw{code:'api_413',message:'الملف كبير (الحد حوالي 6 ميجابايت). صغّر الصورة أو قسّم الملف.'};
+ setStep('إرسال الملف للقراءة على السيرفر…');
+ const r=await DB.fn('read-invoice',{kind,mime,data:b64});
+ return{list:normRes(parseJson(r.text||'')),warn:'',pages:0};
+}
+async function aiRead(file,kind){
+ if(SBON)return fnRead(file,kind);
+ setStep('فحص بيئة القراءة…');
+ const sample=typeof claude!=='undefined'&&claude.use?await claude.use('sample'):null;
+ if(!sample){if(getKey())return apiRead(file,kind);throw{code:'no_runtime'}}
+ const fp=await filePages(file),pages=fp.pages;
+ const lim=await sample.limits().catch(()=>null),img=lim&&lim.images?lim.images:null;
+ const anyText=pages.some(p=>p.text);
+ if(!img&&!anyText){if(getKey())return apiRead(file,kind);throw{code:'no_input'}}
+ const B=img?Math.max(1,Math.min(img.maxCount||3,4)):pages.length,step=Math.max(1,B-1),batches=[];
+ for(let a=0;a<pages.length;a+=step){batches.push(pages.slice(a,a+B));if(a+B>=pages.length)break}
+ const all=[];let warn=fp.cut?`الملف فيه ${fp.total} صفحة، وقُرئت أول 40 صفحة فقط. قسّم الملف لقراءة الباقي.`:'',bad=null;
+ for(let k=0;k<batches.length;k++){
+  const bt=batches[k],a=bt[0].n,b=bt[bt.length-1].n;
+  setStep(`قراءة الصفحات ${a} إلى ${b} من ${fp.total} (دفعة ${k+1} من ${batches.length}) — قد يطلب إذنك أول مرة…`);
+  const txt=bt.map(p=>p.text?`=== صفحة ${p.n} ===\n${p.text}`:'').filter(Boolean).join('\n').slice(0,120000);
+  const opts={cache:false,modelTier:'default'};if(img)opts.images=bt.map(p=>p.blob);
+  const prompt=PROMPT[kind]+`\n\nالصفحات المرسلة الآن هي ${a} إلى ${b} من إجمالي ${fp.total}.`+(img?' الصور بنفس ترتيب الصفحات.':'')+(txt?`\n\nنص مستخرج من الصفحات (قد يكون ناقصاً أو بترتيب مختلف، والصورة هي المرجع):\n${txt}`:'');
+  let res;try{res=normRes(await sample.json(prompt,opts))}catch(e){if(bad===null)bad=e;if(batches.length===1||k===0&&batches.length===1)throw e;warn+=` تعذّرت قراءة الصفحات ${a}–${b}: ${(e&&e.code)||''}.`;continue}
+  const prev=all.length;
+  res.forEach(r=>{const j=all.slice(0,prev).findIndex(o=>invKey(o)===invKey(r));if(j<0)all.push(r);else if(invScore(r)>invScore(all[j]))all[j]=r});
+ }
+ if(!all.length&&bad)throw bad;
+ return{list:all,warn:warn.trim(),pages:fp.total};
+}
+const D=s=>/^\d{4}-\d{2}-\d{2}$/.test(s||'')?s:'';
+function head(raw){
+ const tax=num(raw.total_tax);let total=num(raw.total_incl_tax);if(!total&&has(raw.total_excl_tax))total=num(raw.total_excl_tax)+tax;
+ return{no:String(raw.invoice_no||'').trim(),d:D(raw.date),sup:String(raw.supplier||'').trim(),total:+total.toFixed(2),tax:+tax.toFixed(2)};
+}
+function reconcile(raw){
+ const h=head(raw),L=(raw.lines||[]).map(l=>({n:String(l.name||'').trim(),q:num(l.qty)||1,u:String(l.unit||'').trim(),net:has(l.net)?+l.net:null,tax:has(l.tax)?+l.tax:null,tot:has(l.total)?+l.total:null}));
+ let explicit=false;
+ const a=L.map(l=>{if(l.tot!==null){explicit=true;return l.tot}if(l.net!==null)return l.net+(l.tax||0);return 0});
+ let sm=a.reduce((x,y)=>x+y,0),note='';const inc=raw.complete===false;
+ if(!h.total&&sm&&!inc)h.total=+sm.toFixed(2);
+ if(inc)note='قد تكون هذه الفاتورة ممتدة على صفحات أخرى ولم تُقرأ كاملة. تأكد من الإجمالي والبنود.';
+ if(h.total>0&&sm>0&&Math.abs(sm-h.total)>0.005&&!explicit&&h.total>=sm){const k=h.total/sm;for(let i=0;i<a.length;i++)a[i]=a[i]*k;note='بنود الفاتورة كانت قبل الضريبة، فتم توزيع الضريبة عليها تناسبياً. راجع الأرقام.'}
+ const r=a.map(x=>+x.toFixed(2));
+ if(r.length&&h.total>0){const diff=+(h.total-r.reduce((x,y)=>x+y,0)).toFixed(2);if(Math.abs(diff)>0&&Math.abs(diff)<=0.1*r.length){const j=r.indexOf(Math.max(...r));r[j]=+(r[j]+diff).toFixed(2)}}
+ const lines=L.map((l,i)=>({n:l.n,q:l.q,u:l.u,a:r[i]}));
+ const fin=lines.reduce((x,l)=>x+l.a,0);
+ if(h.total>0&&Math.abs(fin-h.total)>0.01)note=(note?note+' ':'')+'مجموع البنود لا يساوي مبلغ الفاتورة، عدّل البنود حتى يتطابق.';
+ return{...h,lines,note,inc};
+}
+const errMsg=e=>(({no_runtime:'الصفحة مفتوحة خارج Claude (رابط مباشر أو GitHub)، فلا تتوفر القراءة الآلية. افتحها من بطاقة النشر داخل محادثة Claude، أو أدخل مفتاح Claude API من إعداد القراءة الآلية.',no_input:'هذا الملف صورة ولا يسمح هذا العرض بإرسال الصور لـ Claude. أدخل مفتاح Claude API من إعداد القراءة الآلية أو أدخل البيانات يدوياً.',not_granted:'لم تسمح بقراءة الفواتير بواسطة Claude.',rate_limited:'محاولات كثيرة، انتظر قليلاً ثم أعد المحاولة.',invalid_json:'لم أستطع تفسير ردّ القراءة.',nopdf:'تعذّر تحميل قارئ PDF. تأكد من الاتصال بالإنترنت.',images_unavailable:'إرسال الصور غير مسموح في هذا العرض.',image_rejected:'تعذّر قبول صور الفاتورة (كبيرة أو غير مدعومة).',prompt_too_large:'الملف كبير جداً للقراءة دفعة واحدة.',refused:'رفض Claude قراءة هذا الملف.',empty_completion:'لم يرد Claude بأي نص، أعد المحاولة.',upstream_error:'خلل مؤقت في الاتصال بـ Claude، أعد المحاولة.',api_401:'مفتاح Claude API غير صحيح.',api_429:'تجاوزت حد الاستخدام لمفتاح API.',api_network:'تعذّر الاتصال بـ Claude API (إنترنت أو منع من المتصفح).'})[e&&e.code]||'تعذّرت قراءة الفاتورة.')+' [الرمز: '+((e&&e.code)||'-')+((e&&e.message)?' · '+String(e.message).slice(0,160):'')+']';
+/* ---------- الإجراءات ---------- */
+function advance(){draft=dq.length?dq.shift():null}
+async function saveSrc(src){if(!src||!src.f)return null;if(src.id)return src.id;try{const id='f'+uid();await FS.put(id,src.f);src.id=id}catch(e){src.id=null}return src.id}
+async function act(s){
+ const a0=s.split(':')[0];
+ if(a0==='login')return doLogin();
+ if(a0==='forgot')return doForgot();
+ if(a0==='setNewPw')return doNewPw();
+ if(a0==='logout')return doLogout();
+ if(a0==='refresh')return doRefresh();
+ if(a0==='addUser')return addUser();
+ if(a0==='pw'){pwFor=s.split(':')[1];delFor=null;return render()}
+ if(a0==='okPw')return okPw();
+ if(a0==='delU'){delFor=s.split(':')[1];pwFor=null;return render()}
+ if(a0==='delU2')return delUser(s.split(':')[1]);
+ if(a0==='cancelU'){pwFor=null;delFor=null;return render()}
+ if(a0==='refreshLog'){await loadAud();return}
+ if(a0==='xlUsers'&&ME&&ME.role==='admin')return xlm('المستخدمون',[['المستخدمون',rUsers()]],1);
+ if(a0==='xlLog'&&ME&&ME.role==='admin')return xlm('سجل العمليات',[['السجل',rLog()]],1);
+ if(a0==='xlMap')return xlm('ربط دفترة',[['ربط دفترة',rMap()]],1);
+ if(RO&&!/^(xl|view)/.test(a0))return;
+ const[a,x]=s.split(':'),M=(br===ALL||!br)?null:mo(br,yr,mi);
+ if(a==='diag')return diag();
+ if(a==='addDay'){const L=M.days[M.days.length-1],d=L?String(Math.min(28,+L.d.slice(8)+1)).padStart(2,'0'):'01';M.days.push({d:today()+d})}
+ else if(a==='delDay')M.days.splice(+x,1);
+ else if(a==='addInv')M.inv.push({d:today()+'01',no:'',sup:'',t:'food',hi:true,tot:0,tax:0});
+ else if(a==='delInv')M.inv.splice(+x,1);
+ else if(a==='addo')M.ops.push({n:'',a:0});else if(a==='delo')M.ops.splice(+x,1);
+ else if(a==='addl')M.sal.push({n:'',a:0});else if(a==='dell')M.sal.splice(+x,1);
+ else if(a==='addz')M.xo.push({n:'',a:0,k:x==='i'?'i':'e'});else if(a==='delz')M.xo.splice(+x,1);
+ else if(a==='addUnit'){const n=$('#ni_u2').value.trim();if(!n){msg='اكتب اسم الوحدة الجديدة أولاً.';return render()}addUnitName(n);UNSEL=n;msg='أُضيفت الوحدة «'+n+'» إلى القائمة.'}
+ else if(a==='addItem'){const n=$('#ni_n').value.trim();if(!n){msg='اكتب اسم الصنف أولاً.';return render()}addUnitName($('#ni_u2').value);UNSEL='';IT(br).push({id:'i'+uid(),n,u:($('#ni_u2').value.trim()||$('#ni_u').value||'وحدة'),p:num($('#ni_p').value),t:$('#ni_t').value})}
+ else if(a==='delItem')S.bi[br]=IT(br).filter(i=>i.id!==x);
+ else if(a==='showAdd'){showAdd=true;render();const i=$('#nb');if(i)i.focus();return}
+ else if(a==='okBr'){const n=$('#nb').value.trim();showAdd=false;if(SBON){if(n&&!S.branches.includes(n)){try{await DB.addBranch(n);await doRefresh(true);br=n}catch(e){msg='تعذّرت إضافة الفرع: '+(e.message||e)}}render();return}if(n&&!S.branches.includes(n)){S.branches.push(n);S.bi[n]=[];br=n}}
+ else if(a==='seed'){seed();br=S.branches[0];ana=null;draft=null;dq=[]}
+ else if(a==='clear'){S={company:S.company,cur:S.cur,branches:['الفرع الأول'],bi:{'الفرع الأول':[]},mo:{}};br='الفرع الأول';ana=null;draft=null;dq=[]}
+ else if(a==='view'||a==='viewP'){const v=a==='view'?M.inv[+x]:M.pur[+x];try{const f=await FS.get(v.f);if(f){const l=document.createElement('a');l.href=URL.createObjectURL(f);l.target='_blank';l.rel='noopener';document.body.appendChild(l);l.click();l.remove()}}catch(e){msg='تعذّر فتح الملف.';render()}return}
+ else if(a==='addX')draft.lines.push({n:'',q:1,u:'',a:0});
+ else if(a==='delX')draft.lines.splice(+x,1);
+ else if(a==='cancelDraft'){draft=null;dq=[]}
+ else if(a==='skipDraft')advance();
+ else if(a==='spread'){const sm=draft.lines.reduce((t,l)=>t+num(l.a),0),T=num(draft.total);if(sm>0&&T>0){const k=T/sm;draft.lines.forEach(l=>l.a=+(num(l.a)*k).toFixed(2));const df=+(T-draft.lines.reduce((t,l)=>t+l.a,0)).toFixed(2),j=draft.lines.reduce((b,l,i,r)=>l.a>r[b].a?i:b,0);draft.lines[j].a=+(draft.lines[j].a+df).toFixed(2)}}
+ else if(a==='okPur'){
+  const d=draft;if(!d||d.lines.some(l=>!l.n.trim()||num(l.q)<=0)||Math.abs(num(d.total)-d.lines.reduce((t,l)=>t+num(l.a),0))>=0.01)return;
+  const lines=d.lines.map(l=>{let it=matchItem(l.n,d.t);const q=num(l.q),am=+num(l.a).toFixed(2);if(!it){it={id:'i'+uid(),n:l.n.trim(),u:l.u||'وحدة',p:+(q?am/q:0).toFixed(4),t:d.t};IT(br).push(it)}return{i:it.id,n:l.n.trim(),q,u:l.u,a:am}});
+  const fid=await saveSrc(d.src);
+  M.pur.push({id:uid(),d:d.d||today()+'01',no:d.no||'',sup:d.sup,t:d.t,tax:num(d.tax),total:+num(d.total).toFixed(2),f:fid,fn:d.fn,lines});
+  advance();msg='تمت إضافة الفاتورة إلى المخزون وانتقلت كمياتها إلى الجرد.'+(draft?` تبقّى ${dq.length+1} فاتورة للمراجعة.`:'');
+ }
+ else if(a==='addCost'){
+  const t=$('#cf_t').value,d=$('#cf_d').value,tot=num($('#cf_a').value),f=$('#cf_f').files[0];
+  if(!d||!(tot>0)){msg='أدخل التاريخ والمبلغ شامل الضريبة.';return render()}
+  let fid=null;if(f){fid='f'+uid();try{await FS.put(fid,f)}catch(e){fid=null}}
+  M.pur.push({id:uid(),cost:true,d,no:$('#cf_n').value.trim(),sup:$('#cf_s').value.trim(),t,tax:num($('#cf_x').value),total:+tot.toFixed(2),f:fid,fn:f?f.name:'',lines:[]});
+  msg='تم تسجيل الفاتورة كتكلفة وأُضيفت إلى تكلفة مبيعات القسم.';
+ }
+ else if(a==='draftCost'){
+  const d=draft;if(!d||!(num(d.total)>0)){msg='أدخل مبلغ الفاتورة شامل الضريبة أولاً.';return render()}
+  const fid=await saveSrc(d.src);
+  M.pur.push({id:uid(),cost:true,d:d.d||today()+'01',no:d.no||'',sup:d.sup,t:d.t,tax:num(d.tax),total:+num(d.total).toFixed(2),f:fid,fn:d.fn,lines:[]});
+  advance();msg='تم تسجيل الفاتورة كتكلفة وأُضيفت إلى تكلفة مبيعات القسم.'+(draft?` تبقّى ${dq.length+1} فاتورة للمراجعة.`:'');
+ }
+ else if(a==='delPur')M.pur.splice(+x,1);
+ else if(a==='xlSales')return xl('المبيعات',rSales(M));
+ else if(a==='xlInv')return xl('الفواتير',rInv(M));
+ else if(a==='xlStk')return xl('الجرد',rStk());
+ else if(a==='xlInc')return xl('قائمة الدخل',rInc());
+ else if(a==='xlBuy')return xlm('المخزون',[['أصناف المخزون',rBuyI()],['فواتير المشتريات',rBuyP(M)]]);
+ else if(a==='xlMan')return xl('الهالك والرواتب',rMan(M));
+ else if(a==='xlCash')return xl('عهدة الكاش',rCash());
+ else if(a==='xlAna')return xlm('التحليل',[['مقارنة الشهور',rAnaI()]]);
+ else if(a==='xlAll')return xlAll(M);
+ save();render();
+}
+app.addEventListener('keydown',e=>{if(e.key==='Enter'&&e.target.id==='lg_p')doLogin()});
+app.addEventListener('click',e=>{
+ const g=e.target.closest('[data-go]');if(g){pg=g.dataset.go;msg='';if(SBON&&ME&&ME.role==='admin'){if(pg==='users')loadUsers();if(pg==='log')loadAud()}return render()}
+ const m=e.target.closest('[data-mo]');if(m){mi=+m.dataset.mo;draft=null;dq=[];return render()}
+ const b=e.target.closest('[data-br]');if(b){br=b.dataset.br;draft=null;dq=[];return render()}
+ const a=e.target.closest('[data-act]');if(a&&!a.disabled)act(a.dataset.act);
+});
+app.addEventListener('input',e=>{
+ const i=e.target,p=i.dataset.b;if(!p)return;
+ if(RO&&p!=='yr')return;
+ if(p.startsWith('dm:')){if(SBON&&ME.role!=='admin')return;const[,dk,df]=p.split(':');S.dmap=S.dmap||{};S.dmap[dk]=S.dmap[dk]||{};S.dmap[dk][df]=i.value;if(SBON){clearTimeout(window._dmt);window._dmt=setTimeout(()=>DB.setSetting('daftra_map',S.dmap).catch(()=>{}),800)}else save();return}
+ if(p==='co'){if(SBON&&ME.role!=='admin')return;S.company=i.value;if(SBON){clearTimeout(cot);cot=setTimeout(()=>DB.setSetting('company',S.company).catch(()=>{}),800)}else save();return}
+ if(p==='key'){try{localStorage.setItem(KEYN,i.value.trim())}catch(e){}return}
+ if(p==='yr'){yr=+i.value;ana=null;draft=null;dq=[];render();return}
+ const[k,a,f]=p.split(':'),M=br===ALL?null:mo(br,yr,mi);if(!M)return;
+ if(k==='x'){if(!draft)return;if(f===undefined)draft[a]=['total','tax'].includes(a)?num(i.value):i.value;else{const l=draft.lines[+a];l[f]=['q','a'].includes(f)?num(i.value):i.value}soft();return}
+ if(k==='d'){const d=M.days[+a];d[f]=f==='d'?i.value:(i.value===''?'':+i.value)}
+ else if(k==='s'){const r=M.stk[a]=M.stk[a]||{};if(i.value==='')delete r[f];else r[f]=+i.value}
+ else if(k==='i'){const it=IT(br).find(z=>z.id===a);if(it)it.p=num(i.value)}
+ else if(k==='v'){const v=M.inv[+a];v[f]=f==='hi'?i.value==='1':(f==='d'||f==='sup'||f==='t'||f==='no')?i.value:num(i.value);if(f==='tot'||f==='tax')v.ai=v.ai}
+ else if(k==='sk')M.sk=i.value===''?'':+i.value;
+ else if(k==='sb')M.sb=i.value===''?'':+i.value;
+ else if(k==='iv'){const o=M[a]=M[a]||{};o[f]=i.value===''?'':+i.value}
+ else if(k==='z'){const x=M.xo[+a];if(x)x[f]=f==='a'?num(i.value):i.value}
+ else if(k==='o'||k==='l'){const x=(k==='o'?M.ops:M.sal)[+a];x[f]=f==='n'?i.value:num(i.value)}
+ else if(p==='dep')M.dep=num(i.value);
+ else if(p==='wb')M.wb=num(i.value);else if(p==='wk')M.wk=num(i.value);
+ save();
+ if(i.tagName==='SELECT')render();else soft();
+});
+app.addEventListener('change',async e=>{
+ const i=e.target;
+ if(i.dataset.cmp!==undefined){const n=+i.dataset.cmp;cmp=i.checked?[...new Set([...(cmp||[]),n])]:(cmp||[]).filter(x=>x!==n);render();return}
+ if(!S||(SBON&&!ME))return;
+ if(i.dataset.u!==undefined)return userChange(i);
+ if(i.dataset.af!==undefined){if(i.dataset.af==='u')audU=i.value;else audB=i.value;render();return}
+ if(i.dataset.ck!==undefined){const n=+i.dataset.ck;ana=i.checked?[...new Set([...ana,n])]:ana.filter(x=>x!==n);render();return}
+ if(RO)return;
+ const M=(br===ALL||!br)?null:mo(br,yr,mi);
+ if(i.dataset.pur!==undefined){
+  const f=i.files[0];i.value='';if(!f||!M)return;
+  const t=$('#pt').value,d0=draft={st:'reading',t,fn:f.name,src:{f,id:null},no:'',d:'',sup:'',total:0,tax:0,lines:[],note:'',err:'',pos:1,cnt:1};dq=[];diagTxt='';render();startProg();
+  try{
+   const res=await aiRead(f,'pur');stopProg();if(draft!==d0)return;
+   const out=res.list.map((raw,k)=>{const r=reconcile(raw);return{st:'ready',t,fn:f.name,src:d0.src,no:r.no,d:r.d||today()+'01',sup:r.sup,total:r.total,tax:r.tax,lines:r.lines.length?r.lines:[{n:'',q:1,u:'',a:0}],note:(r.lines.length?'':'لم تُقرأ بنود لهذه الفاتورة. أدخلها يدوياً. ')+r.note,err:'',pos:k+1,cnt:res.list.length}});
+   if(!out.length)out.push({st:'ready',t,fn:f.name,src:d0.src,no:'',d:today()+'01',sup:'',total:0,tax:0,lines:[{n:'',q:1,u:'',a:0}],note:'',err:'لم يُعثر على فواتير في الملف. يمكنك إدخال البنود يدوياً.',pos:1,cnt:1});
+   if(res.warn)out[0].note=(res.warn+' '+out[0].note).trim();
+   Object.assign(d0,out[0]);dq=out.slice(1);
+   msg=out.length>1?`تمت قراءة ${out.length} فواتير من الملف، وتظهر واحدة تلو الأخرى للمراجعة.`:'';
+  }catch(err){stopProg();if(draft!==d0)return;Object.assign(d0,{st:'ready',d:today()+'01',lines:[{n:'',q:1,u:'',a:0}],err:errMsg(err)+' يمكنك إدخال البنود يدوياً.'})}
+  render();return;
+ }
+ if(i.dataset.att!==undefined){
+  const f=i.files[0];i.value='';if(!f||!M)return;const v=M.inv[+i.dataset.att];if(!v)return;
+  v._busy=true;v._err='';msg='';diagTxt='';render();startProg();
+  const src={f,id:null};let res=null;
+  try{res=await aiRead(f,'exp');stopProg()}catch(err){stopProg();v._err=errMsg(err)+' أدخل البيانات يدوياً.'}
+  const fid=await saveSrc(src);if(fid){v.f=fid;v.fn=f.name}else{v.fn=f.name}
+  if(res){
+   if(!res.list.length)v._err='لم يُعثر على فاتورة في الملف. أدخل البيانات يدوياً.';
+   else{
+    const hs=res.list.map(head),fill=(o,r,raw)=>{if(r.d)o.d=r.d;if(r.no)o.no=r.no;if(r.sup)o.sup=r.sup;if(r.total)o.tot=r.total;o.tax=r.tax;o.ai=true;o.inc=raw.complete===false};
+    fill(v,hs[0],res.list[0]);
+    const at=M.inv.indexOf(v)+1,extra=hs.slice(1).map((r,k)=>{const o={d:today()+'01',no:'',sup:'',t:v.t,hi:true,tot:0,tax:0,f:fid,fn:f.name};fill(o,r,res.list[k+1]);return o});
+    M.inv.splice(at,0,...extra);
+    msg=(res.list.length>1?`تمت قراءة ${res.list.length} فواتير من الملف وأُضيف لكل فاتورة سطر مستقل.`:'تمت قراءة الفاتورة وتعبئة البيانات قصاد المرفق.')+' راجع الأرقام.'+(res.warn?' '+res.warn:'')+(fid?'':' (تعذّر حفظ المرفق نفسه في المتصفح لكن البيانات قُرئت.)');
+   }
+  }
+  delete v._busy;save();render();
+ }
+});
+
+/* ================= الاتصال بالسيرفر (Supabase) والأدوار ================= */
+const ROLEN={admin:'مدير',manager:'مسؤول فرع',owner:'مالك (عرض فقط)'};
+let ME=null,RO=false,BID={},BNAME={},VER={},SNAP={},USERS=null,AUD=null,syncT=null,syncMsg='',loading=SBON,authErr='',authOk='',RECOV=/type=recovery/.test(location.hash),pwFor=null,delFor=null,audU='',audB='',cot=null,syncing=false,again=false;
+const EMPTY=JSON.stringify(mk());
+const FS={async put(k,v){if(!SBON)return idb.put(k,v);await DB.upload(BID[br]+'/'+k,v)},async get(k){if(!SBON)return idb.get(k);return DB.download(BID[br]+'/'+k)}};
+const DBR={
+ init(){this.c=supabase.createClient(SB_URL,SB_KEY,{auth:{persistSession:true,autoRefreshToken:true}});this.c.auth.onAuthStateChange(ev=>{if(ev==='PASSWORD_RECOVERY'){RECOV=true;render()}})},
+ async q(p){const{data,error}=await p;if(error)throw error;return data},
+ async session(){const{data}=await this.c.auth.getSession();return data.session},
+ async login(e,p){const{error}=await this.c.auth.signInWithPassword({email:e,password:p});if(error)throw error},
+ async logout(){await this.c.auth.signOut()},
+ async me(){const s=await this.session();if(!s)return null;return this.q(this.c.from('profiles').select('id,email,full_name,role,branch_id').eq('id',s.user.id).single())},
+ async loadAll(){const c=this.c,q=this.q;const[br,st,it,mo]=await Promise.all([q(c.from('branches').select('id,name,sort').order('sort')),q(c.from('settings').select('key,value')),q(c.from('branch_items').select('branch_id,items,version')),q(c.from('month_data').select('branch_id,y,m,data,version'))]);return{br,st,it,mo}},
+ async saveMonth(b,y,m,d,v){return this.q(this.c.rpc('save_month',{p_branch:b,p_y:y,p_m:m,p_data:d,p_ver:v}))},
+ async saveItems(b,d,v){return this.q(this.c.rpc('save_items',{p_branch:b,p_items:d,p_ver:v}))},
+ async getMonth(b,y,m){const r=await this.q(this.c.from('month_data').select('data,version').eq('branch_id',b).eq('y',y).eq('m',m).maybeSingle());return r},
+ async getItems(b){return this.q(this.c.from('branch_items').select('items,version').eq('branch_id',b).maybeSingle())},
+ async setSetting(k,v){await this.q(this.c.from('settings').upsert({key:k,value:v}))},
+ async addBranch(n){await this.q(this.c.from('branches').insert({name:n,sort:S.branches.length+1}))},
+ async listUsers(){return this.q(this.c.from('profiles').select('id,email,full_name,role,branch_id,created_at').order('created_at'))},
+ async setUser(id,patch){await this.q(this.c.from('profiles').update(patch).eq('id',id))},
+ async listAudit(){return this.q(this.c.from('audit_log').select('id,at,email,branch_id,action,target,detail').order('at',{ascending:false}).limit(400))},
+ async fn(name,body){const{data,error}=await this.c.functions.invoke(name,{body});if(error){let m=error.message;try{const j=await error.context.json();if(j&&j.error)m=j.error}catch(e){}throw{code:'fn',message:m}}if(data&&data.error)throw{code:'fn',message:data.error};return data},
+ async upload(path,f){const{error}=await this.c.storage.from('invoices').upload(path,f,{upsert:true,contentType:f.type||'application/octet-stream'});if(error)throw error},
+ async download(path){const{data,error}=await this.c.storage.from('invoices').download(path);if(error)throw error;return data},
+ async log(a,d){await this.c.rpc('log_event',{p_action:a,p_detail:d||{}})}
+};
+const DB=window.__KAFID_DB||DBR;
+
+function hydrate(r){
+ BID={};BNAME={};VER={};SNAP={};
+ S={company:'Sabah',cur:'ر.س',branches:[],bi:{},mo:{},dmap:{}};
+ r.st.forEach(x=>{if(x.key==='company')S.company=x.value;if(x.key==='currency')S.cur=x.value;if(x.key==='daftra_map'&&x.value&&typeof x.value==='object')S.dmap=x.value;if(x.key==='units'&&Array.isArray(x.value))S.units=x.value});
+ r.br.forEach(b=>{BID[b.name]=b.id;BNAME[b.id]=b.name;S.branches.push(b.name);S.bi[b.name]=[]});
+ r.it.forEach(x=>{const n=BNAME[x.branch_id];if(!n)return;S.bi[n]=x.items||[];VER['i|'+x.branch_id]=x.version;SNAP['i|'+x.branch_id]=JSON.stringify(S.bi[n])});
+ r.mo.forEach(x=>{const n=BNAME[x.branch_id];if(!n)return;const k=`${n}|${x.y}|${x.m}`;S.mo[k]=x.data;mo(n,x.y,x.m);VER[k]=x.version;SNAP[k]=JSON.stringify(S.mo[k])});
+ RO=ME.role==='owner';
+ if(ME.role==='manager'||(br!==ALL&&!S.branches.includes(br))||(br===ALL&&!S.branches.length))br=S.branches[0];
+}
+async function boot(){
+ if(!SBON){load();br=S.branches[0];render();return}
+ if(!window.__KAFID_DB){if(typeof supabase==='undefined'){loading=false;authErr='تعذّر تحميل مكتبة الاتصال. تأكد من الإنترنت.';return render()}DB.init()}
+ await enter();
+ setInterval(()=>{if(ME&&RO&&document.visibilityState==='visible'&&!document.activeElement.matches('input,select'))doRefresh(true)},60000);
+}
+async function enter(){
+ loading=true;syncMsg='';render();
+ try{
+  if(!(await DB.session())){ME=null}
+  else{ME=await DB.me();if(ME&&ME.role){hydrate(await DB.loadAll())}}
+ }catch(e){ME=null;authErr='تعذّر الاتصال بالسيرفر: '+((e&&e.message)||'')}
+ loading=false;render();
+}
+async function doForgot(){
+ const e=(($('#lg_e')||{}).value||'').trim();authOk='';
+ if(!e){authErr='اكتب بريدك في خانة البريد أولاً ثم اضغط «نسيت كلمة المرور».';return render()}
+ try{const{error}=await DB.c.auth.resetPasswordForEmail(e,{redirectTo:location.origin+location.pathname});if(error)throw error;authErr='';authOk='إن كان البريد مسجلاً فقد أُرسل إليه رابط تعيين كلمة المرور. افتح الرابط من نفس المتصفح.'}
+ catch(err){authErr='تعذّر إرسال الرابط: '+((err&&err.message)||'')}
+ render();
+}
+async function doNewPw(){
+ const a=($('#rc_p')||{}).value||'',b=($('#rc_p2')||{}).value||'';
+ if(a.length<8){authErr='كلمة المرور 8 أحرف على الأقل.';return render()}
+ if(a!==b){authErr='كلمتا المرور غير متطابقتين.';return render()}
+ try{const{error}=await DB.c.auth.updateUser({password:a});if(error)throw error;RECOV=false;authErr='';authOk='';history.replaceState(null,'',location.pathname);await enter()}
+ catch(err){authErr='تعذّر الحفظ: '+((err&&err.message)||'')+' (قد تحتاج طلب رابط جديد).';render()}
+}
+async function doLogin(){
+ const e=($('#lg_e')||{}).value||'',p=($('#lg_p')||{}).value||'';
+ if(!e||!p){authErr='أدخل البريد وكلمة المرور.';return render()}
+ try{await DB.login(e.trim(),p);authErr='';await enter();if(ME&&ME.role)DB.log('login',{}).catch(()=>{})}
+ catch(err){authErr='البريد أو كلمة المرور غير صحيحة.';render()}
+}
+async function doLogout(){
+ try{await syncNow()}catch(e){}
+ try{await DB.logout()}catch(e){}
+ ME=null;S=null;USERS=null;AUD=null;draft=null;dq=[];pg='home';msg='';authErr='';render();
+}
+async function doRefresh(quiet){
+ try{await syncNow();hydrate(await DB.loadAll());if(!quiet)msg='تم تحديث البيانات من السيرفر.'}catch(e){msg='تعذّر التحديث: '+((e&&e.message)||'')}
+ if(!draft)render();
+}
+function scheduleSync(){if(RO||!SBON)return;syncMsg='⏳ جارٍ الحفظ…';updSync();clearTimeout(syncT);syncT=setTimeout(syncNow,700)}
+function updSync(){const e=document.getElementById('syncst');if(e)e.textContent=syncMsg}
+async function conflictReload(b,k){
+ const id=BID[b];
+ if(k==='items'){const r=await DB.getItems(id);if(r){S.bi[b]=r.items||[];VER['i|'+id]=r.version;SNAP['i|'+id]=JSON.stringify(S.bi[b])}}
+ else{const[,y,m]=k.split('|');const r=await DB.getMonth(id,+y,+m);if(r){S.mo[k]=r.data;mo(b,+y,+m);VER[k]=r.version;SNAP[k]=JSON.stringify(S.mo[k])}else{delete S.mo[k];delete VER[k];delete SNAP[k]}}
+ msg='⚠ عدّل مستخدم آخر هذه البيانات أثناء عملك، فحُدّثت لآخر نسخة. راجع آخر إدخال لك وأعده إن لزم.';syncMsg='⚠ تعارض';render();
+}
+async function syncNow(){
+ if(!SBON||RO||!ME)return;
+ if(syncing){again=true;return}
+ syncing=true;clearTimeout(syncT);let conf=false;
+ try{
+  for(const b of S.branches){const id=BID[b];if(!id)continue;
+   const ik='i|'+id,js=JSON.stringify(IT(b));
+   if(SNAP[ik]!==js&&!(SNAP[ik]===undefined&&js==='[]')){
+    const v=await DB.saveItems(id,JSON.parse(js),VER[ik]||0);
+    if(v===null||v===undefined){conf=true;await conflictReload(b,'items');continue}
+    VER[ik]=v;SNAP[ik]=js}
+  }
+  for(const k of Object.keys(S.mo)){const[b,y,m]=k.split('|'),id=BID[b];if(!id)continue;const js=JSON.stringify(S.mo[k]);
+   if(SNAP[k]===js)continue;
+   if(SNAP[k]===undefined&&js===EMPTY)continue;
+   const v=await DB.saveMonth(id,+y,+m,JSON.parse(js),VER[k]||0);
+   if(v===null||v===undefined){conf=true;await conflictReload(b,k);continue}
+   VER[k]=v;SNAP[k]=js}
+  syncMsg=conf?'⚠ تعارض':'✔ تم الحفظ';
+ }catch(e){syncMsg='⚠ تعذّر الحفظ: '+((e&&e.message)||e)}
+ syncing=false;updSync();
+ if(again){again=false;scheduleSync()}
+}
+async function diagSB(){
+ const L=['الاتصال بالسيرفر: '+(ME?'متصل بحساب '+ME.email+' ('+ROLEN[ME.role]+')':'غير متصل')];
+ try{await DB.fn('read-invoice',{kind:'x'});L.push('قراءة الفواتير: غير متوقع')}
+ catch(e){L.push(/نوع غير معروف/.test((e&&e.message)||'')?'قراءة الفواتير على السيرفر: متاحة ✔':'قراءة الفواتير على السيرفر: غير متاحة ('+((e&&e.message)||'')+')')}
+ L.push('مكتبة Excel: '+(window.XLSX?'محمّلة':'غير محمّلة'));
+ L.push('قارئ PDF: '+(typeof pdfjsLib!=='undefined'?'محمّل':'غير محمّل'));
+ return L.join('\n');
+}
+function lockUI(){
+ if(!SBON||!ME||!RO)return;
+ app.querySelectorAll('input,select').forEach(el=>{const d=el.dataset;if(d.b==='yr'||d.ck!==undefined||d.cmp!==undefined||d.af!==undefined)return;el.disabled=true});
+ app.querySelectorAll('[data-act]').forEach(b=>{if(!/^(xl|view|logout|refresh)/.test(b.dataset.act))b.remove()});
+ app.querySelectorAll('input[type=file]').forEach(f=>{(f.closest('label')||f).remove()});
+ app.querySelectorAll('.wr').forEach(el=>el.remove());
+}
+const HDR=()=>SBON&&ME?`<span class="btn" id="syncst">${esc(RO?'عرض فقط':syncMsg)}</span><button class="btn" data-act="refresh" title="تحديث">🔄</button><span class="btn">${esc(ME.full_name||ME.email)} · ${ROLEN[ME.role]}</span><button class="btn" data-act="logout">خروج</button>`:`<button class="btn" data-act="seed">بيانات تجريبية</button><button class="btn" data-act="clear">مسح البيانات</button>`;
+function TABX(){
+ const allB=(!SBON||ME.role!=='manager')?`<button class="tab${br===ALL?' on':''}" style="--c:#7a4f2e" data-br="${ALL}">كل الفروع</button>`:'';
+ const addB=(!SBON||ME.role==='admin')?(showAdd?`<input class="nb" id="nb" placeholder="اسم الفرع الجديد"><button class="pick" data-act="okBr">حفظ</button>`:`<button class="tab add" data-act="showAdd">＋ إضافة فرع</button>`):'';
+ return allB+addB;
+}
+const NAVX=()=>{if(!SBON||!ME)return NAV;if(ME.role==='admin')return[...NAV,['users','المستخدمون والصلاحيات','👤','#364fc7'],['log','سجل العمليات','🕵️','#495057']];return NAV};
+const loginUI=()=>`<div class="card" style="max-width:420px;margin:60px auto"><h2 style="text-align:center">🔐 تسجيل الدخول</h2><div class="fm" style="flex-direction:column;align-items:stretch"><label>البريد الإلكتروني<input id="lg_e" type="email" autocomplete="username" style="width:100%"></label><label>كلمة المرور<input id="lg_p" type="password" autocomplete="current-password" style="width:100%"></label>${authErr?`<div class="alert">${esc(authErr)}</div>`:''}${authOk?`<div class="alert" style="background:#d3f9d8;color:#087f5b">${esc(authOk)}</div>`:''}<button class="pick" data-act="login">دخول</button><button class="back" data-act="forgot">نسيت كلمة المرور؟ (اكتب بريدك أعلاه ثم اضغط)</button></div></div>`;
+const recUI=()=>`<div class="card" style="max-width:420px;margin:60px auto"><h2 style="text-align:center">🔑 كلمة مرور جديدة</h2><div class="fm" style="flex-direction:column;align-items:stretch"><label>كلمة المرور الجديدة (8 أحرف على الأقل)<input id="rc_p" type="password" autocomplete="new-password" style="width:100%"></label><label>أعد كتابتها<input id="rc_p2" type="password" autocomplete="new-password" style="width:100%"></label>${authErr?`<div class="alert">${esc(authErr)}</div>`:''}<button class="pick" data-act="setNewPw">حفظ ودخول</button></div></div>`;
+const pendingUI=()=>`<div class="card" style="max-width:480px;margin:60px auto;text-align:center"><h2>⏳ حسابك قيد الاعتماد</h2><p class="hint">سجّلت الدخول بـ ${esc(ME.email)} لكن لم تُحدَّد صلاحياتك بعد. تواصل مع المدير.</p><button class="back" data-act="logout">خروج</button></div>`;
+
+/* ---------- المستخدمون (للمدير) ---------- */
+async function loadUsers(){try{USERS=await DB.listUsers()}catch(e){msg='تعذّر تحميل المستخدمين: '+((e&&e.message)||'')}render()}
+function pgUsers(){
+ if(!ME||ME.role!=='admin')return ph('👤 المستخدمون')+`<div class="card"><p class="hint">هذه الصفحة للمدير فقط.</p></div>`;
+ const bro=S.branches.map(b=>[BID[b],b]),rn=Object.entries(ROLEN);
+ const rows=(USERS||[]).map(u=>{const me=u.id===ME.id;return`<tr><td>${esc(u.full_name||'—')}<small>${esc(u.email)}</small></td><td><select data-u="${u.id}:role" style="min-width:150px"${me?' disabled':''}><option value=""${!u.role?' selected':''}>غير معتمد</option>${rn.map(([k,n])=>`<option value="${k}"${u.role===k?' selected':''}>${n}</option>`).join('')}</select></td><td><select data-u="${u.id}:branch_id" style="min-width:130px"${u.role==='manager'&&!me?'':' disabled'}><option value="">—</option>${bro.map(([i,n])=>`<option value="${i}"${u.branch_id===i?' selected':''}>${esc(n)}</option>`).join('')}</select></td><td>${me?'<small>حسابك</small>':`<button class="back" data-act="pw:${u.id}">🔑 كلمة مرور</button> ${delFor===u.id?`<button class="pick" data-act="delU2:${u.id}">تأكيد الحذف</button> <button class="back" data-act="cancelU">إلغاء</button>`:`<button class="del" data-act="delU:${u.id}">🗑</button>`}`}</td></tr>`}).join('');
+ const pwRow=pwFor?`<div class="card" style="border:3px solid #364fc7"><h3>🔑 كلمة مرور جديدة لـ ${esc(((USERS||[]).find(u=>u.id===pwFor)||{}).email||'')}</h3><div class="fm"><input id="pw_v" type="text" placeholder="8 أحرف على الأقل" style="width:240px"><button class="pick" data-act="okPw">حفظ</button><button class="back" data-act="cancelU">إلغاء</button></div></div>`:'';
+ return ph('👤 المستخدمون والصلاحيات',btn('xlUsers','⬇ Excel')+' ')+`<div class="card"><h3>➕ إضافة مستخدم</h3><div class="fm"><label>الاسم<input id="nu_n" type="text"></label><label>البريد الإلكتروني<input id="nu_e" type="email" style="width:210px"></label><label>كلمة المرور (8 أحرف+)<input id="nu_p" type="text" style="width:170px"></label><label>الدور<select id="nu_r">${rn.map(([k,n])=>`<option value="${k}"${k==='manager'?' selected':''}>${n}</option>`).join('')}</select></label><label>الفرع (لمسؤول الفرع)<select id="nu_b">${bro.map(([i,n])=>`<option value="${i}">${esc(n)}</option>`).join('')}</select></label>${btn('addUser','＋ إضافة')}</div><p class="hint">مسؤول الفرع يرى ويعدّل فرعه فقط. المالك يرى كل الفروع والصفحات بدون تعديل. المدير له كل الصلاحيات. أعطِ المستخدم بريده وكلمة مروره، وسيدخل من نفس الرابط.</p></div>${pwRow}<div class="card"><h3>المستخدمون الحاليون</h3>${USERS?TB(TH('المستخدم')+TH('الدور','a')+TH('الفرع','b')+TH(''),rows||'<tr><td colspan="4">لا يوجد.</td></tr>'):'<p class="hint">⏳ جارٍ التحميل…</p>'}<p class="hint">يمكنك تغيير الدور أو الفرع مباشرة من القوائم، ويسري فوراً.</p></div>`;
+}
+async function addUser(){
+ const g=id=>($('#'+id)||{}).value||'',role=g('nu_r'),body={action:'create',full_name:g('nu_n').trim(),email:g('nu_e').trim(),password:g('nu_p'),role,branch_id:role==='manager'?g('nu_b'):null};
+ if(!body.email||!body.password){msg='أدخل البريد وكلمة المرور.';return render()}
+ try{await DB.fn('admin-users',body);msg='تمت إضافة المستخدم '+body.email+'.';USERS=await DB.listUsers()}catch(e){msg='تعذّرت الإضافة: '+((e&&e.message)||'')}
+ render();
+}
+async function okPw(){
+ const v=($('#pw_v')||{}).value||'';
+ try{await DB.fn('admin-users',{action:'set_password',id:pwFor,password:v});msg='تم تغيير كلمة المرور.';pwFor=null}catch(e){msg='تعذّر التغيير: '+((e&&e.message)||'')}
+ render();
+}
+async function delUser(id){
+ try{await DB.fn('admin-users',{action:'delete',id});msg='تم حذف المستخدم.';delFor=null;USERS=await DB.listUsers()}catch(e){msg='تعذّر الحذف: '+((e&&e.message)||'')}
+ render();
+}
+async function userChange(i){
+ const[id,f]=i.dataset.u.split(':'),u=(USERS||[]).find(x=>x.id===id);if(!u)return;
+ const patch={};
+ if(f==='role'){patch.role=i.value||null;if(i.value!=='manager')patch.branch_id=null;else if(!u.branch_id)patch.branch_id=BID[S.branches[0]]}
+ else patch.branch_id=i.value||null;
+ try{await DB.setUser(id,patch);Object.assign(u,patch);msg='تم حفظ الصلاحية.'+(f==='role'&&patch.role==='manager'&&!i.dataset.keep?' اختر الفرع المناسب لمسؤول الفرع.':'')}
+ catch(e){msg='تعذّر الحفظ: '+((e&&e.message)||'')}
+ render();
+}
+
+/* ---------- سجل العمليات (للمدير) ---------- */
+async function loadAud(){try{AUD=await DB.listAudit()}catch(e){msg='تعذّر تحميل السجل: '+((e&&e.message)||'')}render()}
+const ALAB={insert:'إنشاء',update:'تعديل',delete:'حذف',login:'دخول',user_create:'إضافة مستخدم',user_password:'تغيير كلمة مرور',user_delete:'حذف مستخدم'};
+const KLAB={days:'المبيعات اليومية',stk:'الجرد',inv:'المصروفات والفواتير',pur:'مشتريات المخزون',ops:'المصروفات التشغيلية',sal:'الرواتب',dep:'الإهلاك',wb:'هالك البن',wk:'هالك المطبخ',xo:'بنود الدخل الإضافية',sk:'مبيعات المطبخ',sb:'مبيعات البن',items:'أصناف الجرد'};
+function audTarget(t){const m=/^(\d{4})-(\d{2})$/.exec(t||'');return m?AR[+m[2]-1]+' '+m[1]:(t==='items'?'الأصناف':(t||''))}
+function audDetail(r){
+ const d=r.detail||{};
+ if(r.action==='user_create')return `${d.email||''} (${ROLEN[d.role]||d.role||''})`;
+ if(r.action==='user_delete')return d.email||'';
+ if(r.action==='login'||r.action==='user_password')return '';
+ const ch=(d.changed||[]).map(c=>{const l=KLAB[c.k]||c.k;if(c.from!==c.to)return `${l}: من ${c.from??'—'} إلى ${c.to??'—'}`;return c.n?`${l}: ${c.n} تعديل`:`${l}: تعديل`});
+ return ch.join(' · ');
+}
+function pgLog(){
+ if(!ME||ME.role!=='admin')return ph('🕵️ سجل العمليات')+`<div class="card"><p class="hint">هذه الصفحة للمدير فقط.</p></div>`;
+ const A=(AUD||[]).filter(r=>(!audU||r.email===audU)&&(!audB||r.branch_id===audB)),us=[...new Set((AUD||[]).map(r=>r.email).filter(Boolean))];
+ const tm=t=>new Date(t).toLocaleString('en-GB',{timeZone:'Asia/Riyadh',hour12:false,dateStyle:'short',timeStyle:'short'});
+ const rows=A.map(r=>`<tr><td>${esc(tm(r.at))}</td><td>${esc(r.email||'—')}</td><td>${esc(BNAME[r.branch_id]||'—')}</td><td>${esc(ALAB[r.action]||r.action)} ${esc(audTarget(r.target))}</td><td style="text-align:start">${esc(audDetail(r))}</td></tr>`).join('');
+ return ph('🕵️ سجل العمليات',btn('refreshLog','🔄 تحديث')+' '+btn('xlLog','⬇ Excel')+' ')+`<div class="card"><div class="fm"><label>المستخدم<select data-af="u"><option value="">الكل</option>${us.map(e=>`<option value="${esc(e)}"${e===audU?' selected':''}>${esc(e)}</option>`).join('')}</select></label><label>الفرع<select data-af="b"><option value="">الكل</option>${S.branches.map(b=>`<option value="${BID[b]}"${BID[b]===audB?' selected':''}>${esc(b)}</option>`).join('')}</select></label></div><p class="hint">يُكتب السجل تلقائياً من السيرفر عند كل إضافة أو تعديل أو حذف للبيانات (آخر 400 عملية)، ولا يمكن لأي مستخدم تعديله. الأوقات بتوقيت الرياض.</p>${AUD?TB(TH('الوقت')+TH('المستخدم','a')+TH('الفرع','b')+TH('العملية','c')+TH('التفاصيل','d'),rows||'<tr><td colspan="5">لا توجد عمليات.</td></tr>'):'<p class="hint">⏳ جارٍ التحميل…</p>'}</div>`;
+}
+
+boot();
+if('serviceWorker' in navigator&&location.protocol.startsWith('http'))navigator.serviceWorker.register('./sw.js').catch(()=>{});
+</script>
+</body>
+</html>
